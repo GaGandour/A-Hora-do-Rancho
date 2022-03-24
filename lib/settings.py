@@ -1,0 +1,5 @@
+FPS = 60
+WIDTH = 960
+HEIGHT = 540
+
+CHINELAO_NAME = "chinelão"
