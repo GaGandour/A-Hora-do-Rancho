@@ -15,8 +15,6 @@ class Food(pygame.sprite.Sprite):
             self.image = pygame.image.load('./assets/images/pork.png')
             
 
-
-
         self.x_spawn = 10
         self.y_spawn = 10
         self.rect = self.image.get_rect(topleft = (self.x_spawn, self.y_spawn))
