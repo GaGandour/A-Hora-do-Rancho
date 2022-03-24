@@ -5,14 +5,13 @@ from settings import *
 from ranch import Ranch
 
 class Game:
-    level = 0
-    screen_name = "start menu"
-
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         self.clock = pygame.time.Clock()
         pygame.display.set_caption('Hora do Rancho')
+        self.level = 0
+        self.screen_name = "start menu"
         self.page = Ranch(self.screen, self.level)
 
     def run(self):
