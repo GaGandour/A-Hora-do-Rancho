@@ -3,7 +3,7 @@ from matplotlib.pyplot import sca
 import pygame, sys
 sys.path.append('./')
 from settings import *
-
+# mm adicionando comentário
 class Food(pygame.sprite.Sprite):
     def __init__(self, food):
         super().__init__()
