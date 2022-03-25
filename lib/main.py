@@ -2,7 +2,9 @@ import pygame, sys, os
 sys.path.append(os.path.join(sys.path[0],'pages'))
 
 from settings import *
+
 from ranch import Ranch
+from home_page import Home_Page
 
 class Game:
     def __init__(self):
@@ -11,10 +13,10 @@ class Game:
         self.clock = pygame.time.Clock()
         pygame.display.set_caption('Hora do Rancho')
         self.level = 0
-        self.screen_name = "start menu"
-        self.page = Ranch(self.screen, self.level)
+        self.screen_name = Home_Page.page_name
 
     def run(self):
+        self.page = Home_Page(self.screen, self.level,self.change_screen)
         while(True):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -27,7 +29,8 @@ class Game:
     def change_screen(self, screen_name):
         self.screen_name = screen_name
         self.page = {
-            Ranch.page_name : Ranch()
+            Ranch.page_name : Ranch(self.screen, self.level),
+            Home_Page.page_name : Home_Page(self.screen, self.level, self.change_screen),
         }.get(screen_name, Ranch.page_name)
 
 
