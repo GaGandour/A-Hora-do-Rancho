@@ -1,7 +1,7 @@
 import pygame, sys
 sys.path.append('./')
 from settings import *
-# mm adicionando comentário
+
 class Food(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
