@@ -34,6 +34,11 @@ class Player(pygame.sprite.Sprite):
         self.speed = 3
         self.state = 'RIGHT'
 
+        self.life = 100
+        self.max_life = 100
+        self.sickness = 0
+        self.max_sickness = 100
+
     def player_input(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_s] or keys[pygame.K_DOWN]:
@@ -77,6 +82,10 @@ class Player(pygame.sprite.Sprite):
         else: self.image = self.frames_left[int(self.frames_index)]
 
     def update(self):
+        self.life -= 0.1
+        self.sickness += 0.1
+        # if self.life <= 0 or self.sickness >= self.max_sickness:
+        #     self.life = 0
         self.ismoving = False
         self.direction = [0,0]
         self.player_input()
