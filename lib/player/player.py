@@ -1,55 +1,69 @@
-from matplotlib import scale
-from matplotlib.pyplot import sca
-from math import sqrt
 import pygame, sys
 sys.path.append('./')
 from settings import *
+from support import import_folder
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, screen):
         super().__init__()
-        self.spritesheet = pygame.image.load('./assets/images/player/gabe-idle-run.png').convert_alpha()
-        self.frames_right = []
-        self.frames_right.append(pygame.transform.scale2x(self.spritesheet.subsurface(pygame.Rect(0,0,24,24))))
-        self.frames_right.append(pygame.transform.scale2x(self.spritesheet.subsurface(pygame.Rect(24,0,24,24))))
-        self.frames_right.append(pygame.transform.scale2x(self.spritesheet.subsurface(pygame.Rect(48,0,24,24))))
-        self.frames_right.append(pygame.transform.scale2x(self.spritesheet.subsurface(pygame.Rect(72,0,24,24))))
-        self.frames_right.append(pygame.transform.scale2x(self.spritesheet.subsurface(pygame.Rect(96,0,24,24))))
-        self.frames_right.append(pygame.transform.scale2x(self.spritesheet.subsurface(pygame.Rect(120,0,24,24))))
-        self.frames_right.append(pygame.transform.scale2x(self.spritesheet.subsurface(pygame.Rect(144,0,24,24))))
-        
-        self.frames_left = []
-        for frame in self.frames_right:
-            self.frames_left.append(pygame.transform.flip(frame,True,False))
+        self.import_character_assets()
+        self.frame_index = 0
+        self.animation_speed = 0.1
+        self.image = self.animations['down'][self.frame_index]
+        self.rect = self.image.get_rect(center = (0.5 * WIDTH, 0.5 * HEIGHT))
 
-        self.frames_index = 0
-        self.image = self.frames_right[self.frames_index]
-        
-        self.x_spawn = WIDTH/2
-        self.y_spawn = HEIGHT/2
-        self.rect = self.image.get_rect(center = (self.x_spawn, self.y_spawn))
+        # ui setup
+        self.screen = screen
 
-        self.direction =[0,0]
-        self.ismoving = False
+        # player movement
+        self.direction = pygame.math.Vector2(0,0)
         self.speed = 3
-        self.state = 'RIGHT'
+        self.ismoving = False
+        self.status = 'down'
 
+        # player health and sickness
+        self.alive = True
         self.life = 100
+        self.sick = 0
         self.max_life = 100
-        self.sickness = 0
-        self.max_sickness = 100
+        self.max_sick = 100
+        self.length_of_bars = 0.5 * WIDTH
+        self.ratio_life_to_bar = self.length_of_bars / self.max_life
+        self.ratio_sick_to_bar = self.length_of_bars / self.max_sick
+        self.life_rect = pygame.Rect(0.25*WIDTH,25,self.length_of_bars,20)
+        self.sick_rect = pygame.Rect(0.25*WIDTH,50,self.length_of_bars,20)
 
-    def player_input(self):
+    def import_character_assets(self):
+        # set paths and store sprites
+        character_path = './assets/images/player/'
+        self.animations = {'down':[],'left':[],'right':[],'up':[]}
+
+        for animation in self.animations.keys():
+            full_path = character_path + animation
+            self.animations[animation] = import_folder(full_path)
+
+    def get_input(self):
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_s] or keys[pygame.K_DOWN]:
-            self.direction[1] += 1
-        if keys[pygame.K_a] or keys[pygame.K_LEFT]:
-            self.direction[0] -= 1
-        if keys[pygame.K_w] or keys[pygame.K_UP]:
-            self.direction[1] -= 1
-        if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
-            self.direction[0] += 1
         
+        # reset variabLes
+        self.direction.update(0,0)
+        self.ismoving = False
+        
+        # check player input
+        if keys[pygame.K_s] or keys[pygame.K_DOWN]:
+            self.direction.y += 1
+        if keys[pygame.K_a] or keys[pygame.K_LEFT]:
+            self.direction.x -= 1
+        if keys[pygame.K_w] or keys[pygame.K_UP]:
+            self.direction.y -= 1
+        if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
+            self.direction.x += 1
+        
+        # check final movement
+        if self.direction != (0,0):
+            self.ismoving = True
+
+        # constrain to ranch
         if self.rect.bottom > HEIGHT:
             self.rect.bottom = HEIGHT
         if self.rect.left < 0:
@@ -59,38 +73,61 @@ class Player(pygame.sprite.Sprite):
         if self.rect.right > WIDTH:
             self.rect.right = WIDTH
 
+    def get_status(self):
+        if self.direction.x > 0:
+            self.status = 'right'
+        elif self.direction.x < 0:
+            self.status = 'left'
+        elif self.direction.y > 0:
+                self.status = 'down'
+        elif self.direction.y < 0:
+            self.status = 'up'
+
     def walk(self):
-        if self.direction != [0,0]:
-            self.ismoving = True
-            if self.direction[0] * self.direction[1] == 0:
-                self.rect.x += round(self.speed * self.direction[0])
-                self.rect.y += round(self.speed * self.direction[1])
+        if self.ismoving:
+            if self.direction.x * self.direction.y == 0:
+                self.rect.x += round(self.speed * self.direction.x)
+                self.rect.y += round(self.speed * self.direction.y)
             else:
-                self.rect.x += round(self.speed * 0.707 * self.direction[0])
-                self.rect.y += round(self.speed * 0.707 * self.direction[1])
+                self.rect.x += round(self.speed * 0.707 * self.direction.x)
+                self.rect.y += round(self.speed * 0.707 * self.direction.y)
 
     def animation_state(self):
-        if self.direction[0] > 0: self.state = 'RIGHT'
-        elif self.direction[0] <0: self.state = 'LEFT'
+        animation = self.animations[self.status]
+
+        # loop frame index 
+        self.frame_index += self.animation_speed
+        if self.frame_index >= len(animation):
+            self.frame_index = 0
         
         if self.ismoving:
-            self.frames_index = (self.frames_index + 0.15) % len(self.frames_right)
-        else: self.frames_index = 0
+            self.image = animation[int(self.frame_index)]
+        else: self.image = animation[0]
 
-        if self.state == 'RIGHT':
-            self.image = self.frames_right[int(self.frames_index)]
-        else: self.image = self.frames_left[int(self.frames_index)]
+    def draw_ui(self):
+        # draw health
+        pygame.draw.rect(self.screen,(255,0,0),(0.25*WIDTH,25,self.ratio_life_to_bar*self.life,20))
+        pygame.draw.rect(self.screen,(255,255,255),self.life_rect,4)
+        # draw sickness
+        pygame.draw.rect(self.screen,(0,255,0),(0.25*WIDTH,50,self.ratio_sick_to_bar*self.sick,20))
+        pygame.draw.rect(self.screen,(255,255,255),self.sick_rect,4)
 
-    def update(self):
+    def check_health(self): 
         self.life -= 0.1
-        self.sickness += 0.1
-        # if self.life <= 0 or self.sickness >= self.max_sickness:
-        #     self.life = 0
-        self.ismoving = False
-        self.direction = [0,0]
-        self.player_input()
+        self.sick += 0.1
+        if self.life <= 0:
+            self.live = 0
+            self.alive = False
+        if self.sick >= self.max_sick:
+            self.sick = self.max_sick
+            self.alive = False
+    
+    def update(self):
+        self.check_health()
+        self.draw_ui()
+        self.get_input()
+        self.get_status()
         self.walk()
         self.animation_state()
 
-
-
+        

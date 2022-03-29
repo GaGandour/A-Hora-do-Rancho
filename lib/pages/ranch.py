@@ -17,12 +17,28 @@ class Ranch:
         self.level = level
         self.screen = screen
         self.food_names = food_names
+        
         self.player = pygame.sprite.GroupSingle()
-        self.player.add(Player())
+        self.player.add(Player(screen))
         
         self.foods = pygame.sprite.Group()
         self.food_timer = pygame.USEREVENT + 1
         pygame.time.set_timer(self.food_timer, 100)
+
+    def get_food(self):
+        return {
+            Chinelao.food_name : Chinelao(),
+            Lagarto.food_name : Lagarto(),
+        }.get(choice(self.food_names), Chinelao.food_name)
+    
+    def check_food_collisions(self):
+        food_collisions = pygame.sprite.spritecollide(self.player.sprite,self.foods,False)
+        if food_collisions:
+           for food in food_collisions:
+                if food.is_good == True:
+                    print ("nhom nhom")
+                else: print("eca, nojin")
+                food.kill()
 
     def update(self):
         pygame.display.update()
@@ -36,15 +52,7 @@ class Ranch:
         self.player.update()
         self.foods.draw(self.screen)
         self.foods.update()
-
-    def get_food(self):
-        return {
-            Chinelao.food_name : Chinelao(),
-            Lagarto.food_name : Lagarto(),
-        }.get(choice(self.food_names), Chinelao.food_name)
-
-
-
+        self.check_food_collisions()
 
 
 
