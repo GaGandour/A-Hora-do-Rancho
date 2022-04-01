@@ -14,14 +14,14 @@ class Direction(Enum):
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, change_screen, screen, foods):
+    def __init__(self, game_over, screen, foods):
         super().__init__()
         self.animations = self.import_character_assets()
         self.frame_index = 0
         self.animation_speed = 0.1
         self.image = self.animations[Direction.down][self.frame_index]
         self.rect = self.image.get_rect(center = (0.5 * WIDTH, 0.5 * HEIGHT))
-        self.change_screen = change_screen
+        self.game_over = game_over
         self.screen = screen
         self.foods = foods
 
@@ -162,12 +162,12 @@ class Player(pygame.sprite.Sprite):
             self.cur_sickness = 0
         elif self.cur_sickness >= 100:
             self.cur_sickness = 100
-            self.change_screen("home_page") # game over
+            self.game_over()
         if self.cur_health > 100:
             self.cur_health = 100
         elif self.cur_health <= 0:
             self.cur_health = 0
-            self.change_screen("home_page") # game over
+            self.game_over()
 
 
     def update(self):

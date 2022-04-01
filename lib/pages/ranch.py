@@ -1,13 +1,14 @@
 import pygame, sys, os
 from random import choice
 
-
-from chinelao import Chinelao
-from lagarto import Lagarto
 sys.path.append('./')
 sys.path.append(os.path.join(sys.path[0], 'objects'))
 sys.path.append(os.path.join(sys.path[0], 'player'))
+
+from chinelao import Chinelao
+from lagarto import Lagarto
 from lib.player.player import Player
+from game_over import Game_Over
 from settings import *
 
 class Ranch:
@@ -32,7 +33,7 @@ class Ranch:
         
         # player
         self.player = pygame.sprite.GroupSingle()
-        self.player.add(Player(change_screen, screen, self.foods))
+        self.player.add(Player(lambda: change_screen(Game_Over.page_name), screen, self.foods))
 
         
     def get_food(self):

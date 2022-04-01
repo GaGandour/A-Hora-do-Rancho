@@ -8,13 +8,12 @@ from menu_button import Menu_Button
 
 
 class Home_Page:
-    page_name = "home_page"
+    page_name = "home page"
 
-    def __init__(self, screen, level, change_screen):
+    def __init__(self, screen, change_screen):
         #self.map_sprite = pygame.transform.scale(pygame.image.load('./assets/maps/scenery.jpg').convert(), (WIDTH, HEIGHT))
         self.bg_surface = pygame.Surface((WIDTH,HEIGHT))
         self.bg_surface.fill("#2e2e2e")
-        self.level = level
         self.screen = screen
         
         self.buttons = [
