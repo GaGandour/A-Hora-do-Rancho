@@ -1,6 +1,6 @@
 import pygame
 
-class UI:
+class Player_Status_UI:
     def __init__(self,screen):
         # setup 
         self.display_surface = screen 
@@ -16,7 +16,7 @@ class UI:
         # clock 
         self.clock = pygame.image.load('./assets/images/ui/clock.png').convert_alpha()
         self.clock_rect = self.clock.get_rect(topleft = (800,20))
-        self.font = pygame.font.Font('./assets/images/ui/ARCADEPI.ttf',30)
+        self.font = pygame.font.Font('./assets/fonts/ARCADEPI.ttf',30)
 
     def show_health(self,current,full):
         self.display_surface.blit(self.health_bar,(277,0))

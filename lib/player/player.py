@@ -3,7 +3,7 @@ sys.path.append('./')
 sys.path.append(os.path.join(sys.path[0], 'widgets'))
 from settings import *
 from support import import_folder
-from ui import UI
+from player_status_ui import Player_Status_UI
 from enum import Enum
 
 class Direction(Enum):
@@ -38,7 +38,7 @@ class Player(pygame.sprite.Sprite):
         self.cur_sickness = 0
 
         # ui setup
-        self.ui = UI(self.screen)
+        self.ui = Player_Status_UI(self.screen)
         self.start_time = int(pygame.time.get_ticks()/500)
 
 
