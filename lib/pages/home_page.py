@@ -1,4 +1,5 @@
 import pygame, sys, os
+from food_choice import Food_Choice
 from ranch import Ranch
 sys.path.append('./')
 sys.path.append(os.path.join(sys.path[0], 'objects'))
@@ -14,7 +15,7 @@ class Home_Page:
         self.screen = screen
         ## implementar um componente de botao generico
         self.text_font = pygame.font.Font(None,50)
-        self.text_surf = self.text_font.render('Play', False, 'Blue')
+        self.text_surf = self.text_font.render('Play', False, 'Black')
         self.text_rect = self.text_surf.get_rect(center = (480,270))
         self.start_function = start_function
 
@@ -29,7 +30,7 @@ class Home_Page:
         
         
         if pygame.mouse.get_pressed()[0] and self.text_rect.collidepoint(pygame.mouse.get_pos()):
-            self.start_function(Ranch.page_name)
+            self.start_function(Food_Choice.page_name)
             
             
         # for event in pygame.event.get():
