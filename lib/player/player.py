@@ -1,35 +1,63 @@
-import pygame, sys
+import pygame, sys, os
 sys.path.append('./')
+sys.path.append(os.path.join(sys.path[0], 'widgets'))
 from settings import *
 from support import import_folder
+from ui import UI
+from enum import Enum
+
+class Direction(Enum):
+    down = "down"
+    up = "up"
+    left = "left"
+    right = "right"
+
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self,change_health,change_sickness):
+    def __init__(self, change_screen, screen, foods):
         super().__init__()
-        self.import_character_assets()
+        self.animations = self.import_character_assets()
         self.frame_index = 0
         self.animation_speed = 0.1
-        self.image = self.animations['down'][self.frame_index]
+        self.image = self.animations[Direction.down][self.frame_index]
         self.rect = self.image.get_rect(center = (0.5 * WIDTH, 0.5 * HEIGHT))
+        self.change_screen = change_screen
+        self.screen = screen
+        self.foods = foods
 
         # player movement
         self.direction = pygame.math.Vector2(0,0)
         self.speed = 4
         self.ismoving = False
-        self.stance = 'down'
+        self.stance = Direction.down
 
         # health/sickness management
-        self.change_health = change_health
-        self.change_sickness = change_sickness
+        self.max_health = 100
+        self.cur_health = 100
+        self.max_sickness = 100
+        self.cur_sickness = 0
+
+        # ui setup
+        self.ui = UI(self.screen)
+        self.start_time = int(pygame.time.get_ticks()/500)
+
 
     def import_character_assets(self):
         # set paths and store sprites
         character_path = './assets/images/player/'
-        self.animations = {'down':[],'left':[],'right':[],'up':[]}
+        animations = {
+            Direction.down:[],
+            Direction.left:[],
+            Direction.right:[],
+            Direction.up:[]
+        }
 
-        for animation in self.animations.keys():
-            full_path = character_path + animation
-            self.animations[animation] = import_folder(full_path)
+        for animation in animations.keys():
+            full_path = character_path + animation.value
+            animations[animation] = import_folder(full_path)
+
+        return animations
+
 
     def get_input(self):
         keys = pygame.key.get_pressed()
@@ -62,15 +90,17 @@ class Player(pygame.sprite.Sprite):
         if self.rect.right > WIDTH-40:
             self.rect.right = WIDTH-40
 
+
     def get_stance(self):
         if self.direction.x > 0:
-            self.stance = 'right'
+            self.stance = Direction.right
         elif self.direction.x < 0:
-            self.stance = 'left'
+            self.stance = Direction.left
         elif self.direction.y > 0:
-                self.stance = 'down'
+                self.stance = Direction.down
         elif self.direction.y < 0:
-            self.stance = 'up'
+            self.stance = Direction.up
+
 
     def walk(self):
         if self.ismoving:
@@ -80,6 +110,7 @@ class Player(pygame.sprite.Sprite):
             else:
                 self.rect.x += round(self.speed * 0.707 * self.direction.x)
                 self.rect.y += round(self.speed * 0.707 * self.direction.y)
+
 
     def animation_state(self):
         animation = self.animations[self.stance]
@@ -93,18 +124,61 @@ class Player(pygame.sprite.Sprite):
             self.image = animation[int(self.frame_index)]
         else: self.image = animation[0]
 
+    
+    def change_health(self,amount):
+        self.cur_health += amount
+
+
+    def change_sickness(self,amount):
+        self.cur_sickness += amount
+
+
     def decay_self(self): 
         self.change_health(-0.1)
         self.change_sickness(-0.05)
 
+
     def ate_good_food(self):
         self.change_health(+20)
-    
+
+
     def ate_bad_food(self):
         self.change_sickness(+40)
         
+
+    def check_food_collisions(self):
+        food_collisions = pygame.sprite.spritecollide(self,self.foods,False)
+        if food_collisions:
+            for food in food_collisions:
+                if food.is_good == True:
+                    self.ate_good_food()
+                else:
+                    self.ate_bad_food()
+                food.kill()
+                
+
+    def check_attributes(self):
+        if self.cur_sickness < 0:
+            self.cur_sickness = 0
+        elif self.cur_sickness >= 100:
+            self.cur_sickness = 100
+            self.change_screen("home_page") # game over
+        if self.cur_health > 100:
+            self.cur_health = 100
+        elif self.cur_health <= 0:
+            self.cur_health = 0
+            self.change_screen("home_page") # game over
+
+
     def update(self):
+        self.ui.show_health(self.cur_health,self.max_health)
+        self.ui.show_sickness(self.cur_sickness,self.max_sickness)
+        self.ui.display_time(int(pygame.time.get_ticks()/500) - self.start_time)
+
         self.decay_self()
+        self.check_food_collisions()
+        self.check_attributes()
+ 
         self.get_input()
         self.get_stance()
         self.walk()
