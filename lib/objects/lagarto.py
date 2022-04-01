@@ -6,7 +6,7 @@ from math import sqrt
 
 class Lagarto(Food):
     food_name = "lagarto"
-    is_good = True
+    is_good = False
 
     def __init__(self):
         super().__init__()

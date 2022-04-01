@@ -32,7 +32,7 @@ class Game:
     def change_screen(self, screen_name):
         self.screen_name = screen_name
         self.page = {
-            Ranch.page_name : Ranch(self.screen, self.level, self.food_names),
+            Ranch.page_name : Ranch(self.screen, self.level, self.food_names, self.change_screen),
             Home_Page.page_name : Home_Page(self.screen, self.level, self.change_screen),
         }.get(screen_name, Home_Page.page_name)
 
