@@ -14,7 +14,7 @@ class Direction(Enum):
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, game_over, screen, foods):
+    def __init__(self, game_over, pass_level, screen, foods, max_time):
         super().__init__()
         self.animations = self.import_character_assets()
         self.frame_index = 0
@@ -24,6 +24,8 @@ class Player(pygame.sprite.Sprite):
         self.game_over = game_over
         self.screen = screen
         self.foods = foods
+        self.max_time = max_time
+        self.pass_level = pass_level
 
         # player movement
         self.direction = pygame.math.Vector2(0,0)
@@ -173,7 +175,11 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         self.ui.show_health(self.cur_health,self.max_health)
         self.ui.show_sickness(self.cur_sickness,self.max_sickness)
-        self.ui.display_time(int(pygame.time.get_ticks()/1000) - self.start_time)
+        current_time = int(pygame.time.get_ticks()/500) - self.start_time
+        if (current_time > self.max_time):
+            self.pass_level()
+
+        self.ui.display_time(current_time)
 
         self.decay_self()
         self.check_food_collisions()
