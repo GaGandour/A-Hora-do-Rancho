@@ -8,6 +8,7 @@ from settings import *
 from menu_button import Menu_Button
 
 
+
 class Home_Page:
     page_name = "home page"
 
@@ -18,26 +19,15 @@ class Home_Page:
         self.screen = screen
         
         self.buttons = [
-            Menu_Button(screen, (480, 270), "Play", lambda: change_screen(Ranch.page_name)),
+            Menu_Button(screen, (480, 220), "Play", lambda: change_screen(Food_Choice.page_name)),
+            Menu_Button(screen, (480, 320), "How To Play", lambda: change_screen(Food_Choice.page_name)),
         ]
         
 
     def update(self):
         pygame.display.update()
         
-        self.screen.blit(self.bg_surface,(0,0))
-
-        if pygame.mouse.get_pressed()[0] and self.text_rect.collidepoint(pygame.mouse.get_pos()):
-            self.start_function(Food_Choice.page_name)
-            
-            
-        # for event in pygame.event.get():
-        #         if event.type == pygame.MOUSEBUTTONDOWN :
-                    
-        #             if event and self.text_rect.collidepoint(event.pos): print('collision')   
-                
-                 
-                  
+        self.screen.blit(self.bg_surface,(0,0))                  
         
         if self.buttons:
             for button in self.buttons:

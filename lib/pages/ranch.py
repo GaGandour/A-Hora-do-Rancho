@@ -5,11 +5,11 @@ sys.path.append('./')
 sys.path.append(os.path.join(sys.path[0], 'objects'))
 sys.path.append(os.path.join(sys.path[0], 'player'))
 
-from chinelao import Chinelao
-from lagarto import Lagarto
 from lib.player.player import Player
 from game_over import Game_Over
 from settings import *
+from food_list import *
+
 
 class Ranch:
     page_name = "ranch"
@@ -37,17 +37,18 @@ class Ranch:
 
         
     def get_food(self):
-        return {
-            Chinelao.food_name : Chinelao(),
-            Lagarto.food_name : Lagarto(),
-        }.get(choice(self.food_names), Chinelao.food_name)
-    
+        food_dictionary = {}
+        for pair in FOOD_LIST:
+            food_dictionary[pair[0]] = pair[1]
+
+        return food_dictionary.get(choice(self.food_names), "")
+        
 
     def update(self):
         pygame.display.update()
         for event in pygame.event.get():
                 if event.type == self.food_timer:
-                    self.foods.add(self.get_food())
+                    self.foods.add(self.get_food()())
         
         self.screen.blit(self.map_sprite,(0,0))
         
