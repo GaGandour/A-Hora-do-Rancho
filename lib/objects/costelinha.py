@@ -5,7 +5,7 @@ from math import sqrt
 
 class Costelinha(Food):
     food_name = "Costelinha"
-    path = "./assets/images/ribs.png"
+    path = "./assets/images/food/ribs.png"
     is_good = False
 
     def __init__(self):
