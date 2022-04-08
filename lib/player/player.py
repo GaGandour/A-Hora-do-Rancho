@@ -175,7 +175,7 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         self.ui.show_health(self.cur_health,self.max_health)
         self.ui.show_sickness(self.cur_sickness,self.max_sickness)
-        current_time = int(pygame.time.get_ticks()/500) - self.start_time
+        current_time = int(pygame.time.get_ticks()/1000) - self.start_time
         if (current_time > self.max_time):
             self.pass_level()
 
