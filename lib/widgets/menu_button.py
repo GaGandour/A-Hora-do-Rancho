@@ -1,13 +1,13 @@
 import pygame
 
 class Menu_Button:
-    def __init__(self,screen, position, text, function, size = 50, color = 'White'):
+    def __init__(self, screen, position, text, function, size = 50, color = 'White'):
         # setup 
         self.screen = screen
         self.function = function 
         
-        self.text_font = pygame.font.Font('./assets/fonts/ARCADEPI.ttf',size)
-        self.text_surf = self.text_font.render(text, False, color)
+        text_font = pygame.font.Font('./assets/fonts/ARCADEPI.ttf',size)
+        self.text_surf = text_font.render(text, False, color)
         self.text_rect = self.text_surf.get_rect(center = position)
 
 

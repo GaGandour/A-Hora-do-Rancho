@@ -1,9 +1,10 @@
 import pygame, sys, os
+from choice_button import Choice_Button
 from ranch import Ranch
 sys.path.append('./')
 sys.path.append(os.path.join(sys.path[0], 'objects'))
 from settings import *
-from menu_button import Menu_Button
+from choice_button import Choice_Button
 
 from food_list import FOOD_LIST
 
@@ -18,7 +19,7 @@ class Food_Choice:
         self.screen = screen
         self.bg_surface = pygame.Surface((WIDTH,HEIGHT))
         self.bg_surface.fill("#2e2e2e")
-        text_font = pygame.font.Font('./assets/fonts/ARCADEPI.ttf',50)
+        text_font = pygame.font.Font('./assets/fonts/ARCADEPI.ttf',45)
         self.text_surf = text_font.render('Escolha sua comida preferida!', False, 'White')
         self.text_rect = self.text_surf.get_rect(center = (480,70))
         self.start_function = change_screen
@@ -29,8 +30,8 @@ class Food_Choice:
         sec_food = FOOD_LIST[food_index + 1]
 
         self.buttons = [
-                Menu_Button(screen, (280, 320), first_food.food_name, lambda : self.move_to_phase(first_food, sec_food, 1)),
-                Menu_Button(screen, (680, 320), sec_food.food_name, lambda: self.move_to_phase(first_food, sec_food, 2)),
+                Choice_Button(screen, (330, 266), first_food, lambda : self.move_to_phase(first_food, sec_food, 1)),
+                Choice_Button(screen, (628, 266), sec_food, lambda: self.move_to_phase(first_food, sec_food, 2)),
             ]
     
     @staticmethod

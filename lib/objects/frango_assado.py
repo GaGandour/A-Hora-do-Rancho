@@ -4,12 +4,13 @@ from settings import *
 from math import sqrt
 
 class Frango_Assado(Food):
-    food_name = "Frango Assado"
+    food_name = "Frango"
+    path = "./assets/images/chicken.png"
     is_good = False
 
     def __init__(self):
         super().__init__()
-        temp_image = pygame.image.load('./assets/images/chicken.png').convert_alpha()
+        temp_image = pygame.image.load(Frango_Assado.path).convert_alpha()
         self.image = pygame.transform.scale(temp_image, (30,30))
 
         if self.x_speed != 0 and self.y_speed != 0:
