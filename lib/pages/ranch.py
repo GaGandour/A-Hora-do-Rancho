@@ -5,22 +5,23 @@ sys.path.append('./')
 sys.path.append(os.path.join(sys.path[0], 'objects'))
 sys.path.append(os.path.join(sys.path[0], 'player'))
 
-from chinelao import Chinelao
-from lagarto import Lagarto
 from lib.player.player import Player
-from game_over import Game_Over
 from settings import *
+from food_list import *
+
 
 class Ranch:
     page_name = "ranch"
 
-    def __init__(self, screen, level, food_names, change_screen):
+    def __init__(self, screen, level, food_names, change_screen, pass_level, game_over):
         # general setup
         self.screen = screen
         self.change_screen = change_screen
+        self.game_over = game_over
+        self.max_time = 30
         
         # layout setup
-        self.map_sprite = pygame.transform.scale(pygame.image.load('./assets/maps/rancho_dos_soldados.png').convert(), (WIDTH, HEIGHT))
+        self.map_sprite = pygame.transform.scale(pygame.image.load('./assets/maps/soldier_ranch_16x16.png').convert(), (WIDTH, HEIGHT))
         
         # level attributes
         self.level = level
@@ -33,21 +34,22 @@ class Ranch:
         
         # player
         self.player = pygame.sprite.GroupSingle()
-        self.player.add(Player(lambda: change_screen(Game_Over.page_name), screen, self.foods))
+        self.player.add(Player(game_over, pass_level, screen, self.foods, self.max_time))
 
         
     def get_food(self):
-        return {
-            Chinelao.food_name : Chinelao(),
-            Lagarto.food_name : Lagarto(),
-        }.get(choice(self.food_names), Chinelao.food_name)
-    
+        food_dictionary = {}
+        for pair in FOOD_LIST:
+            food_dictionary[pair[0]] = pair[1]
+
+        return food_dictionary.get(choice(self.food_names), "")
+        
 
     def update(self):
         pygame.display.update()
         for event in pygame.event.get():
                 if event.type == self.food_timer:
-                    self.foods.add(self.get_food())
+                    self.foods.add(self.get_food()())
         
         self.screen.blit(self.map_sprite,(0,0))
         

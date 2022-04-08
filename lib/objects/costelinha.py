@@ -3,13 +3,13 @@ import pygame
 from settings import *
 from math import sqrt
 
-class Chinelao(Food):
-    food_name = "chinelao"
+class Costelinha(Food):
+    food_name = "Costelinha"
     is_good = False
 
     def __init__(self):
         super().__init__()
-        temp_image = pygame.image.load('./assets/images/pork.png').convert_alpha()
+        temp_image = pygame.image.load('./assets/images/ribs.png').convert_alpha()
         self.image = pygame.transform.scale(temp_image, (30,30))
 
         if self.x_speed != 0 and self.y_speed != 0:

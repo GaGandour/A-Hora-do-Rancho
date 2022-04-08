@@ -5,7 +5,6 @@ sys.path.append(os.path.join(sys.path[0], 'widgets'))
 from settings import *
 from menu_button import Menu_Button
 
-
 class Game_Over:
     page_name = "game over"
 
