@@ -1,6 +1,8 @@
 {
     "python.analysis.extraPaths": [
         "./lib/pages",
-        "./lib/objects"
+        "./lib/objects",
+        "./widgets",
+        "./lib/widgets"
     ]
 }

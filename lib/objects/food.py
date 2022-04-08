@@ -1,32 +1,41 @@
-from matplotlib import scale
-from matplotlib.pyplot import sca
-import pygame, sys
+import pygame, sys, abc
 sys.path.append('./')
 from settings import *
-# mm adicionando comentário
-class Food(pygame.sprite.Sprite):
-    def __init__(self, food):
+from random import choice
+
+class Food(pygame.sprite.Sprite, abc.ABC):
+    def __init__(self):
         super().__init__()
-        self.food = food
-        if food == CHINELAO_NAME:
-            temp_image = pygame.image.load('./assets/images/pork.png').convert_alpha()
-            self.image = pygame.transform.scale(temp_image, (30,30))
-        else:
-            self.image = pygame.image.load('./assets/images/pork.png')
-            
+        (self.x_spawn, self.y_spawn, self.x_speed, self.y_speed) = choice([
+            (-10,-10, 4, 4),
+            (WIDTH+10,-10, -4, 4),
+            (-10,HEIGHT+10, 4, -4),
+            (WIDTH+10,HEIGHT+10, -4, -4),
+            (WIDTH/3,-10, 0, 4),
+            (WIDTH/3,HEIGHT+10, 0, 4),
+            (2*WIDTH/3,-10, 0, 4),
+            (2*WIDTH/3,HEIGHT+10, 0, -4),
+            (-10,HEIGHT/3, 4, 0),
+            (WIDTH+10,HEIGHT/3, -4, 0),
+            (-10,2*HEIGHT/3, 4, 0),
+            (WIDTH+10,2*HEIGHT/3, -4, 0),
+            (WIDTH/2,HEIGHT+10, 0, -4),
+            (WIDTH/2,-10, 0, 4),
+            (WIDTH+10,HEIGHT/2, -4, 0),
+            (-10,HEIGHT/2, 4, 0),
+        ])
+    
 
-        self.x_spawn = 10
-        self.y_spawn = 10
-        self.rect = self.image.get_rect(topleft = (self.x_spawn, self.y_spawn))
-
+    @abc.abstractmethod
     def update(self):
-        self.rect.x += 2
-        self.rect.y += 2
         self.destroy()
 
+    
     def destroy(self):
-        if self.rect.x < -100 or self.rect.x > WIDTH + 10 or self.rect.y < -10 or self.rect.y > HEIGHT + 10:
+        if self.rect.x < -20 or self.rect.x > WIDTH + 20 or self.rect.y < -20 or self.rect.y > HEIGHT + 20:
             self.kill()
 
-
-
+    
+    @classmethod
+    def set_preference(cls, good):
+        cls.is_good = good

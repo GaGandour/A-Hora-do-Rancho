@@ -1,44 +1,61 @@
 import pygame, sys, os
+from random import choice
+
 sys.path.append('./')
 sys.path.append(os.path.join(sys.path[0], 'objects'))
-from food import Food
 sys.path.append(os.path.join(sys.path[0], 'player'))
+
 from lib.player.player import Player
 from settings import *
+from food_list import *
+
 
 class Ranch:
     page_name = "ranch"
 
-    def __init__(self, screen, level):
-        self.map_sprite = pygame.transform.scale(pygame.image.load('./assets/maps/scenery.jpg').convert(), (WIDTH, HEIGHT))
-        self.level = level
+    def __init__(self, screen, level, food_names, change_screen, pass_level, game_over):
+        # general setup
         self.screen = screen
-
-        self.player = pygame.sprite.GroupSingle()
-        self.player.add(Player())
+        self.change_screen = change_screen
+        self.game_over = game_over
+        self.max_time = 30
         
+        # layout setup
+        self.map_sprite = pygame.transform.scale(pygame.image.load('./assets/maps/soldier_ranch_16x16.png').convert(), (WIDTH, HEIGHT))
+        
+        # level attributes
+        self.level = level
+        
+        # foods
+        self.food_names = food_names
         self.foods = pygame.sprite.Group()
         self.food_timer = pygame.USEREVENT + 1
-        pygame.time.set_timer(self.food_timer, 300)
+        pygame.time.set_timer(self.food_timer, 100)
+        
+        # player
+        self.player = pygame.sprite.GroupSingle()
+        self.player.add(Player(game_over, pass_level, screen, self.foods, self.max_time))
+
+        
+    def get_food(self):
+        food_dictionary = {}
+        for pair in FOOD_LIST:
+            food_dictionary[pair[0]] = pair[1]
+
+        return food_dictionary.get(choice(self.food_names), "")
+        
 
     def update(self):
         pygame.display.update()
         for event in pygame.event.get():
                 if event.type == self.food_timer:
-                    self.foods.add(Food(CHINELAO_NAME))
+                    self.foods.add(self.get_food()())
         
         self.screen.blit(self.map_sprite,(0,0))
         
         self.player.draw(self.screen)
         self.player.update()
+        
         self.foods.draw(self.screen)
         self.foods.update()
-
-
-
-
-
-
-
-
-
+        
