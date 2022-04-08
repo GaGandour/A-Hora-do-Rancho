@@ -7,8 +7,8 @@ from costelinha import Costelinha
 from frango_assado import Frango_Assado
 
 FOOD_LIST = [
-    (Costelinha.food_name, Costelinha),
-    (Frango_Assado.food_name, Frango_Assado),
-    (Chinelao.food_name, Chinelao),
-    (Lagarto.food_name, Lagarto),
+    Costelinha,
+    Frango_Assado,
+    Chinelao,
+    Lagarto,
 ]

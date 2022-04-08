@@ -18,19 +18,19 @@ class Food_Choice:
         self.screen = screen
         self.bg_surface = pygame.Surface((WIDTH,HEIGHT))
         self.bg_surface.fill("#2e2e2e")
-        self.text_font = pygame.font.Font('./assets/fonts/ARCADEPI.ttf',50)
-        self.text_surf = self.text_font.render('Escolha sua comida preferida!', False, 'White')
+        text_font = pygame.font.Font('./assets/fonts/ARCADEPI.ttf',50)
+        self.text_surf = text_font.render('Escolha sua comida preferida!', False, 'White')
         self.text_rect = self.text_surf.get_rect(center = (480,70))
         self.start_function = change_screen
         self.add_food = add_food
 
-        self.food_index = level*2 - 2
-        self.first_food_pair = FOOD_LIST[self.food_index]
-        self.sec_food_pair = FOOD_LIST[self.food_index + 1]
+        food_index = level*2 - 2
+        first_food = FOOD_LIST[food_index]
+        sec_food = FOOD_LIST[food_index + 1]
 
         self.buttons = [
-                Menu_Button(screen, (280, 320), self.first_food_pair[0], lambda : self.move_to_phase( self.first_food_pair[1], self.sec_food_pair[1], 1)),
-                Menu_Button(screen, (680, 320), self.sec_food_pair[0], lambda: self.move_to_phase(self.first_food_pair[1], self.sec_food_pair[1], 2)),
+                Menu_Button(screen, (280, 320), first_food.food_name, lambda : self.move_to_phase(first_food, sec_food, 1)),
+                Menu_Button(screen, (680, 320), sec_food.food_name, lambda: self.move_to_phase(first_food, sec_food, 2)),
             ]
     
     @staticmethod
