@@ -14,6 +14,6 @@ class Menu_Button:
     def update(self):
         self.screen.blit(self.text_surf, self.text_rect)
         
-        if pygame.mouse.get_pressed()[0] and self.text_rect.collidepoint(pygame.mouse.get_pos()):
+        if pygame.MOUSEBUTTONUP and self.text_rect.collidepoint(pygame.mouse.get_pos()):
             self.function()
             
