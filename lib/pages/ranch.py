@@ -21,7 +21,7 @@ class Ranch:
         self.max_time = 30
         
         # layout setup
-        self.map_sprite = pygame.transform.scale(pygame.image.load('./assets/maps/rancho_dos_soldados.png').convert(), (WIDTH, HEIGHT))
+        self.map_sprite = pygame.transform.scale(pygame.image.load('./assets/maps/soldier_ranch_16x16.png').convert(), (WIDTH, HEIGHT))
         
         # level attributes
         self.level = level
