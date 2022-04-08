@@ -30,7 +30,7 @@ class Ranch:
         self.food_names = food_names
         self.foods = pygame.sprite.Group()
         self.food_timer = pygame.USEREVENT + 1
-        pygame.time.set_timer(self.food_timer, 60)
+        pygame.time.set_timer(self.food_timer, 20)
         
         # player
         self.player = pygame.sprite.GroupSingle()
@@ -39,8 +39,8 @@ class Ranch:
         
     def get_food(self):
         food_dictionary = {}
-        for pair in FOOD_LIST:
-            food_dictionary[pair[0]] = pair[1]
+        for food in FOOD_LIST:
+            food_dictionary[food.food_name] = food
 
         return food_dictionary.get(choice(self.food_names), "")
         
