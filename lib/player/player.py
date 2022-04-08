@@ -18,7 +18,7 @@ class Player(pygame.sprite.Sprite):
         super().__init__()
         self.animations = self.import_character_assets()
         self.frame_index = 0
-        self.animation_speed = 0.1
+        self.animation_speed = 0.15
         self.image = self.animations[Direction.down][self.frame_index]
         self.rect = self.image.get_rect(center = (0.5 * WIDTH, 0.5 * HEIGHT))
         self.game_over = game_over
@@ -27,7 +27,7 @@ class Player(pygame.sprite.Sprite):
 
         # player movement
         self.direction = pygame.math.Vector2(0,0)
-        self.speed = 4
+        self.speed = 3
         self.ismoving = False
         self.stance = Direction.down
 
@@ -39,7 +39,7 @@ class Player(pygame.sprite.Sprite):
 
         # ui setup
         self.ui = Player_Status_UI(self.screen)
-        self.start_time = int(pygame.time.get_ticks()/500)
+        self.start_time = int(pygame.time.get_ticks()/1000)
 
 
     def import_character_assets(self):
@@ -81,14 +81,14 @@ class Player(pygame.sprite.Sprite):
             self.ismoving = True
 
         # constrain to ranch
-        if self.rect.bottom > HEIGHT-40:
-            self.rect.bottom = HEIGHT-40
-        if self.rect.left < 40:
-            self.rect.left = 40
-        if self.rect.top < 100:
-            self.rect.top = 100    
-        if self.rect.right > WIDTH-40:
-            self.rect.right = WIDTH-40
+        if self.rect.bottom > HEIGHT-16:
+            self.rect.bottom = HEIGHT-16
+        if self.rect.left < 32:
+            self.rect.left = 32
+        if self.rect.top < 80:
+            self.rect.top = 80    
+        if self.rect.right > WIDTH-32:
+            self.rect.right = WIDTH-32
 
 
     def get_stance(self):
@@ -118,7 +118,7 @@ class Player(pygame.sprite.Sprite):
         # loop frame index 
         self.frame_index += self.animation_speed
         if self.frame_index >= len(animation):
-            self.frame_index = 0
+            self.frame_index = 1
         
         if self.ismoving:
             self.image = animation[int(self.frame_index)]
@@ -173,7 +173,7 @@ class Player(pygame.sprite.Sprite):
     def update(self):
         self.ui.show_health(self.cur_health,self.max_health)
         self.ui.show_sickness(self.cur_sickness,self.max_sickness)
-        self.ui.display_time(int(pygame.time.get_ticks()/500) - self.start_time)
+        self.ui.display_time(int(pygame.time.get_ticks()/1000) - self.start_time)
 
         self.decay_self()
         self.check_food_collisions()

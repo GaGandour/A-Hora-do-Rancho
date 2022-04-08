@@ -20,7 +20,7 @@ class Ranch:
         self.change_screen = change_screen
         
         # layout setup
-        self.map_sprite = pygame.transform.scale(pygame.image.load('./assets/maps/rancho_dos_soldados.png').convert(), (WIDTH, HEIGHT))
+        self.map_sprite = pygame.transform.scale(pygame.image.load('./assets/maps/soldier_ranch_16x16.png').convert(), (WIDTH, HEIGHT))
         
         # level attributes
         self.level = level
