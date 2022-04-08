@@ -16,7 +16,7 @@ class Game_Over:
         
         self.buttons = [
             Menu_Button(screen, (WIDTH/2, 230), "Game Over!!!", lambda : None, size = 100),
-            Menu_Button(screen, (WIDTH/2, 280), "Go To Start Menu", go_back_to_home_function, color='Red'),
+            Menu_Button(screen, (WIDTH/2, 300), "Go To Start Menu", go_back_to_home_function, color='Red'),
         ]
         
 
