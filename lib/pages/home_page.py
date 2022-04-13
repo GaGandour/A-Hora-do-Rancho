@@ -1,6 +1,5 @@
 import pygame, sys, os
 from food_choice import Food_Choice
-from ranch import Ranch
 sys.path.append('./')
 sys.path.append(os.path.join(sys.path[0], 'objects'))
 sys.path.append(os.path.join(sys.path[0], 'widgets'))

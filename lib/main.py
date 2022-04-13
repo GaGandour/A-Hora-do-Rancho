@@ -50,7 +50,7 @@ class Game:
         self.screen_name = screen_name
         self.page = {
             Home_Page.page_name : Home_Page(self.screen, self.change_screen),
-            Ranch.page_name : Ranch(self.screen, self.level, self.food_names, self.change_screen, self.pass_level, self.game_over),
+            Ranch.page_name : Ranch(self.screen, self.level, self.food_names, self.go_to_home_page, self.pass_level, self.game_over),
             Food_Choice.page_name : Food_Choice(self.screen,  self.change_screen, self.level, self.add_food),
             Game_Over.page_name : Game_Over(self.screen, lambda: self.change_screen(Home_Page.page_name))
         }.get(screen_name, Home_Page.page_name)
@@ -66,8 +66,15 @@ class Game:
         self.level += 1
         self.change_screen(Food_Choice.page_name)
 
+
     def game_over(self):
         self.change_screen(Game_Over.page_name)
+        self.level = 1
+        self.food_names = []
+
+
+    def go_to_home_page(self):
+        self.change_screen(Home_Page.page_name)
         self.level = 1
         self.food_names = []
 

@@ -14,7 +14,7 @@ class Direction(Enum):
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, game_over, pass_level, screen, foods, max_time):
+    def __init__(self, game_over, pass_level, screen, foods, max_time, pause):
         super().__init__()
         self.animations = self.import_character_assets()
         self.frame_index = 0
@@ -26,6 +26,7 @@ class Player(pygame.sprite.Sprite):
         self.foods = foods
         self.max_time = max_time
         self.pass_level = pass_level
+        self.pause = pause
 
         # player movement
         self.direction = pygame.math.Vector2(0,0)
@@ -69,6 +70,8 @@ class Player(pygame.sprite.Sprite):
         self.ismoving = False
         
         # check player input
+        if keys[pygame.K_ESCAPE]:
+            self.pause()
         if keys[pygame.K_s] or keys[pygame.K_DOWN]:
             self.direction.y += 1
         if keys[pygame.K_a] or keys[pygame.K_LEFT]:
