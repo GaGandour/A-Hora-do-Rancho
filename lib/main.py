@@ -1,6 +1,7 @@
 import pygame, sys, os
 sys.path.append(os.path.join(sys.path[0],'pages'))
 sys.path.append(os.path.join(sys.path[0],'objects'))
+# from playsound import playsound
 
 from settings import *
 
@@ -19,6 +20,17 @@ class Game:
         self.screen_name = Home_Page.page_name
         self.food_names = []
         self.page = Home_Page(self.screen,self.change_screen)
+        self.music_file = './assets/music/Ranch_Time.wav'
+
+    
+    def play_music(self):
+        pygame.mixer.init()
+        pygame.mixer.music.load(self.music_file)
+        pygame.mixer.music.play(loops=-1)
+
+
+    def stop_music(self):
+        pygame.mixer.music.stop()
 
 
     def run(self):
@@ -40,6 +52,10 @@ class Game:
             Food_Choice.page_name : Food_Choice(self.screen,  self.change_screen, self.level, self.add_food),
             Game_Over.page_name : Game_Over(self.screen, lambda: self.change_screen(Home_Page.page_name))
         }.get(screen_name, Home_Page.page_name)
+        if screen_name == Ranch.page_name and self.level == 1:
+            self.play_music()
+        if screen_name == Game_Over.page_name:
+            self.stop_music()
 
 
     def pass_level(self):
