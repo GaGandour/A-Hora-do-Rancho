@@ -22,7 +22,7 @@ class Ranch:
         self.go_to_home_page = go_to_home_page
         self.game_over = game_over
         self.max_time = 30
-        self.play = True
+        self.playing = True
         
         # layout setup
         self.map_sprite = pygame.transform.scale(pygame.image.load('./assets/maps/soldier_ranch_16x16.png').convert(), (WIDTH, HEIGHT))
@@ -60,12 +60,12 @@ class Ranch:
         
 
     def pause(self):
-        self.play = not self.play
+        self.playing = not self.playing
 
 
     def update(self):
         pygame.display.update()
-        if self.play:
+        if self.playing:
             for event in pygame.event.get():
                     if event.type == self.food_timer:
                         self.foods.add(self.get_food()())
@@ -79,8 +79,12 @@ class Ranch:
             self.foods.update()
         else:
             self.screen.blit(self.map_sprite,(0,0))
+
             self.player.draw(self.screen)
+            self.player.sprite.show_ui(False)
+
             self.foods.draw(self.screen)
+
             self.screen.blit(self.pause_surface, (0,0))
 
             if self.buttons:
