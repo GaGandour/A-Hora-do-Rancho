@@ -20,12 +20,14 @@ class Game:
         self.screen_name = Home_Page.page_name
         self.food_names = []
         self.page = Home_Page(self.screen,self.change_screen)
-        self.music_file = './assets/music/Ranch_Time.wav'
+        self.ranch_time_music = './assets/music/Ranch_Time.wav'
+        self.menu_theme_music = './assets/music/Menu_Theme.wav'
+        self.play_music(self.menu_theme_music)
 
     
-    def play_music(self):
+    def play_music(self, file):
         pygame.mixer.init()
-        pygame.mixer.music.load(self.music_file)
+        pygame.mixer.music.load(file)
         pygame.mixer.music.play(loops=-1)
 
 
@@ -53,9 +55,11 @@ class Game:
             Game_Over.page_name : Game_Over(self.screen, lambda: self.change_screen(Home_Page.page_name))
         }.get(screen_name, Home_Page.page_name)
         if screen_name == Ranch.page_name and self.level == 1:
-            self.play_music()
+            self.play_music(self.ranch_time_music)
         if screen_name == Game_Over.page_name:
             self.stop_music()
+        if screen_name == Home_Page.page_name:
+            self.play_music(self.menu_theme_music) 
 
 
     def pass_level(self):
