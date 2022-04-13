@@ -4,11 +4,12 @@ from math import sqrt
 
 class Lagarto(Food):
     food_name = "lagarto"
+    path = "./assets/images/beef.png"
     is_good = False
 
     def __init__(self):
         super().__init__()
-        temp_image = pygame.image.load('./assets/images/beef.png').convert_alpha()
+        temp_image = pygame.image.load(Lagarto.path).convert_alpha()
         self.image = pygame.transform.scale(temp_image, (30,30))
 
         if self.x_speed != 0 and self.y_speed != 0:

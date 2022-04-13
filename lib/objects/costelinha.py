@@ -5,11 +5,12 @@ from math import sqrt
 
 class Costelinha(Food):
     food_name = "Costelinha"
+    path = "./assets/images/ribs.png"
     is_good = False
 
     def __init__(self):
         super().__init__()
-        temp_image = pygame.image.load('./assets/images/ribs.png').convert_alpha()
+        temp_image = pygame.image.load(Costelinha.path).convert_alpha()
         self.image = pygame.transform.scale(temp_image, (30,30))
 
         if self.x_speed != 0 and self.y_speed != 0:
