@@ -14,13 +14,13 @@ class Direction(Enum):
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, game_over, pass_level, screen, foods, max_time):
+    def __init__(self, game_over, pass_level, screen, foods, max_time, obstacles):
         super().__init__()
         self.animations = self.import_character_assets()
         self.frame_index = 0
         self.animation_speed = 0.15
         self.image = self.animations[Direction.down][self.frame_index]
-        self.rect = self.image.get_rect(center = (0.5 * WIDTH, 0.5 * HEIGHT))
+        self.rect = self.image.get_rect(center = (0.4 * WIDTH, 0.5 * HEIGHT))
         self.mask = pygame.mask.from_surface(self.image)
         self.game_over = game_over
         self.screen = screen
@@ -29,6 +29,7 @@ class Player(pygame.sprite.Sprite):
         self.pass_level = pass_level
 
         # player movement
+        self.obstacles = obstacles
         self.direction = pygame.math.Vector2(0,0)
         self.speed = 3
         self.ismoving = False
@@ -83,16 +84,6 @@ class Player(pygame.sprite.Sprite):
         if self.direction != (0,0):
             self.ismoving = True
 
-        # constrain to ranch
-        if self.rect.bottom > HEIGHT-16:
-            self.rect.bottom = HEIGHT-16
-        if self.rect.left < 32:
-            self.rect.left = 32
-        if self.rect.top < 80:
-            self.rect.top = 80    
-        if self.rect.right > WIDTH-32:
-            self.rect.right = WIDTH-32
-
 
     def get_stance(self):
         if self.direction.x > 0:
@@ -113,6 +104,20 @@ class Player(pygame.sprite.Sprite):
             else:
                 self.rect.x += round(self.speed * 0.707 * self.direction.x)
                 self.rect.y += round(self.speed * 0.707 * self.direction.y)
+
+
+    def constraint_walk(self):
+        if self.ismoving:
+            for rect in self.obstacles:
+                if self.rect.colliderect(rect):
+                    if 0 < self.rect.right - rect.left < self.speed+1:
+                        self.rect.right = rect.left
+                    if 0 < rect.right - self.rect.left < self.speed+1:
+                        self.rect.left = rect.right
+                    if 0 < self.rect.bottom - rect.top < self.speed+1:
+                        self.rect.bottom = rect.top
+                    if 0 < rect.bottom - self.rect.top < self.speed+1:
+                        self.rect.top = rect.bottom
 
 
     def animation_state(self):
@@ -192,6 +197,7 @@ class Player(pygame.sprite.Sprite):
         self.get_input()
         self.get_stance()
         self.walk()
+        self.constraint_walk()
         self.animation_state()
 
         

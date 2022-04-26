@@ -22,6 +22,23 @@ class Ranch:
         
         # layout setup
         self.map_sprite = pygame.transform.scale(pygame.image.load('./assets/maps/soldier_ranch_16x16.png').convert(), (WIDTH, HEIGHT))
+        self.map_sprite_always_on_top = pygame.transform.scale(pygame.image.load('./assets/maps/soldier_ranch_16x16_always_on_top.png').convert_alpha(), (WIDTH, HEIGHT))
+        obstacles = []
+        # add borders
+        obstacles.append(pygame.Rect(0,0,960,74))
+        obstacles.append(pygame.Rect(0,0,32,540))
+        obstacles.append(pygame.Rect(928,0,32,540))
+        obstacles.append(pygame.Rect(0,528,960,12))
+        # add buffets
+        obstacles.append(pygame.Rect(160,74,128,30))
+        for i in range(3):
+            obstacles.append(pygame.Rect(160,222+96*i,128,10))
+        # add tables
+        obstacles.append(pygame.Rect(386,74,30,124))
+        for i in range(4):
+            obstacles.append(pygame.Rect(482+96*i,74,30,124))
+            obstacles.append(pygame.Rect(482+96*i,286,30,40))
+            obstacles.append(pygame.Rect(482+96*i,414,30,114))
         
         # level attributes
         self.level = level
@@ -34,7 +51,7 @@ class Ranch:
         
         # player
         self.player = pygame.sprite.GroupSingle()
-        self.player.add(Player(game_over, pass_level, screen, self.foods, self.max_time))
+        self.player.add(Player(game_over, pass_level, screen, self.foods, self.max_time, obstacles))
 
         
     def get_food(self):
@@ -55,7 +72,10 @@ class Ranch:
         
         self.player.draw(self.screen)
         self.player.update()
+
+        self.screen.blit(self.map_sprite_always_on_top,(0,0))
         
         self.foods.draw(self.screen)
         self.foods.update()
+
         
