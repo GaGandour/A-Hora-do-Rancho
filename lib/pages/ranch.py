@@ -26,19 +26,19 @@ class Ranch:
         obstacles = []
         # add borders
         obstacles.append(pygame.Rect(0,0,960,74))
-        obstacles.append(pygame.Rect(0,0,32,540))
-        obstacles.append(pygame.Rect(928,0,32,540))
+        obstacles.append(pygame.Rect(0,0,30,540))
+        obstacles.append(pygame.Rect(930,0,30,540))
         obstacles.append(pygame.Rect(0,528,960,12))
         # add buffets
-        obstacles.append(pygame.Rect(160,74,128,30))
+        obstacles.append(pygame.Rect(162,74,124,30))
         for i in range(3):
-            obstacles.append(pygame.Rect(160,222+96*i,128,10))
+            obstacles.append(pygame.Rect(162,222+96*i,124,10))
         # add tables
-        obstacles.append(pygame.Rect(386,74,30,124))
+        obstacles.append(pygame.Rect(388,74,26,124))
         for i in range(4):
-            obstacles.append(pygame.Rect(482+96*i,74,30,124))
-            obstacles.append(pygame.Rect(482+96*i,286,30,40))
-            obstacles.append(pygame.Rect(482+96*i,414,30,114))
+            obstacles.append(pygame.Rect(484+96*i,74,26,124))
+            obstacles.append(pygame.Rect(484+96*i,286,26,40))
+            obstacles.append(pygame.Rect(484+96*i,414,26,114))
         
         # level attributes
         self.level = level
