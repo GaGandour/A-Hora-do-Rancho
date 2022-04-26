@@ -21,6 +21,7 @@ class Player(pygame.sprite.Sprite):
         self.animation_speed = 0.15
         self.image = self.animations[Direction.down][self.frame_index]
         self.rect = self.image.get_rect(center = (0.5 * WIDTH, 0.5 * HEIGHT))
+        self.mask = pygame.mask.from_surface(self.image)
         self.game_over = game_over
         self.screen = screen
         self.foods = foods
@@ -151,7 +152,10 @@ class Player(pygame.sprite.Sprite):
     def check_food_collisions(self):
         food_collisions = pygame.sprite.spritecollide(self,self.foods,False)
         if food_collisions:
-            for food in food_collisions:
+            # only check mask_collision when there are rect collisions
+            # otherwise it can get laggy when there are lots of foods
+            mask_collisions = pygame.sprite.spritecollide(self,food_collisions,False,pygame.sprite.collide_mask)
+            for food in mask_collisions:
                 if food.is_good == True:
                     self.ate_good_food()
                 else:
