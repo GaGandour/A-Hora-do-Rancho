@@ -4,7 +4,8 @@ sys.path.append('./')
 sys.path.append(os.path.join(sys.path[0], 'objects'))
 sys.path.append(os.path.join(sys.path[0], 'widgets'))
 from settings import *
-from menu_button import Menu_Button
+from new_menu_button import New_Menu_Button
+from math import sin, cos
 
 
 
@@ -13,19 +14,22 @@ class Home_Page:
 
     def __init__(self, screen, change_screen):
         #self.map_sprite = pygame.transform.scale(pygame.image.load('./assets/maps/scenery.jpg').convert(), (WIDTH, HEIGHT))
-        self.bg_surface = pygame.transform.scale(pygame.image.load('./assets/images/home_page/titlescreen.jpg').convert(), (WIDTH, HEIGHT))
+        self.background = pygame.transform.scale(pygame.image.load('./assets/images/home_page/title_bg.png').convert(), (WIDTH, HEIGHT))
+        self.title = pygame.transform.scale2x(pygame.image.load('./assets/images/home_page/title.png').convert_alpha())
+        self.moving_bg = pygame.transform.scale2x(pygame.image.load('./assets/images/home_page/moving_bg.png').convert_alpha())
         self.screen = screen
         
         self.buttons = [
-            Menu_Button(screen, (480, 220), "Play", lambda: change_screen(Food_Choice.page_name)),
-            Menu_Button(screen, (480, 320), "How To Play", lambda: change_screen(Food_Choice.page_name)),
+            New_Menu_Button(screen, (480, 264), "Play", lambda: change_screen(Food_Choice.page_name)),
+            New_Menu_Button(screen, (480, 412), "How To Play", lambda: change_screen(Food_Choice.page_name)),
         ]
-        
 
     def update(self):
         pygame.display.update()
         
-        self.screen.blit(self.bg_surface,(0,0))                  
+        self.screen.blit(self.background,(0,0))
+        self.screen.blit(self.moving_bg,(-250+50*cos(pygame.time.get_ticks()*0.0005),-200+50*sin(pygame.time.get_ticks()*0.0005)))
+        self.screen.blit(self.title,(152,46))
         
         if self.buttons:
             for button in self.buttons:
