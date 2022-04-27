@@ -22,7 +22,15 @@ class Food(pygame.sprite.Sprite, abc.ABC):
             (WIDTH/2,HEIGHT+10, 0, -4),
             (WIDTH/2,-10, 0, 4),
             (WIDTH+10,HEIGHT/2, -4, 0),
-            (-10,HEIGHT/2, 4, 0),
+            (-10,HEIGHT/2, 4, 0), # A partir daqui, é comida rente à parede
+            (30, -10, 0, 4),
+            (WIDTH-60, -10, 0, 4),
+            (30, HEIGHT+10, 0, -4),
+            (WIDTH-60, HEIGHT+10, 0, -4),
+            (-10, 60, 4, 0),
+            (WIDTH+10, 60, -4, 0),
+            (-10, HEIGHT-45, 4, 0),
+            (WIDTH+10, HEIGHT-45, -4, 0),
         ])
     
 
