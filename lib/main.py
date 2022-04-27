@@ -3,7 +3,6 @@ from random import shuffle
 
 sys.path.append(os.path.join(sys.path[0],'pages'))
 sys.path.append(os.path.join(sys.path[0],'objects'))
-# from playsound import playsound
 
 from settings import *
 from food_list import FOOD_LIST

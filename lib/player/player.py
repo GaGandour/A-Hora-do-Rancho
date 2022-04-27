@@ -1,10 +1,12 @@
 import pygame, sys, os
 sys.path.append('./')
 sys.path.append(os.path.join(sys.path[0], 'widgets'))
+sys.path.append(os.path.join(sys.path[0], 'objects'))
 from settings import *
 from support import import_folder
 from player_status_ui import Player_Status_UI
 from enum import Enum
+from trigger_burguer import Trigger_Burguer
 
 class Direction(Enum):
     down = "down"
@@ -14,7 +16,7 @@ class Direction(Enum):
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, game_over, pass_level, screen, foods, max_time, pause_function, obstacles):
+    def __init__(self, game_over, pass_level, screen, foods, max_time, pause_function, obstacles, start_special_ranch_function):
         super().__init__()
         self.animations = self.import_character_assets()
         self.frame_index = 0
@@ -28,6 +30,7 @@ class Player(pygame.sprite.Sprite):
         self.max_time = max_time
         self.pass_level = pass_level
         self.pause_function = pause_function
+        self.start_special_ranch_function = start_special_ranch_function
         self.good_food_sound = pygame.mixer.Sound("assets/sounds/goodFood.wav")
         self.bad_food_sound = pygame.mixer.Sound("assets/sounds/badFood.wav")
 
@@ -103,6 +106,10 @@ class Player(pygame.sprite.Sprite):
             self.stance = Direction.up
 
 
+    def get_current_time(self):
+        return self.current_time
+
+
     def walk(self):
         if self.ismoving:
             if self.direction.x * self.direction.y == 0:
@@ -170,7 +177,10 @@ class Player(pygame.sprite.Sprite):
             # otherwise it can get laggy when there are lots of foods
             mask_collisions = pygame.sprite.spritecollide(self,food_collisions,False,pygame.sprite.collide_mask)
             for food in mask_collisions:
-                if food.is_good == True:
+                if food.food_name == Trigger_Burguer.food_name:
+                    self.ate_good_food()
+                    self.start_special_ranch_function()
+                elif food.is_good == True:
                     self.ate_good_food()
                 else:
                     self.ate_bad_food()

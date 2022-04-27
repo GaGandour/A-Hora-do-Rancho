@@ -8,6 +8,8 @@ sys.path.append(os.path.join(sys.path[0], 'pages'))
 
 from lib.player.player import Player
 from lib.widgets.customized_text import Customized_Text
+from lib.objects.trigger_burguer import Trigger_Burguer
+from lib.objects.burguer import Burguer
 
 from settings import *
 from food_list import *
@@ -23,6 +25,9 @@ class Ranch:
         self.game_over = game_over
         self.max_time = 30
         self.playing = True
+        self.is_special_ranch = False
+        self.there_is_burguer = False
+        self.special_ranch_start_time = 0
         
         # layout setup
         self.map_sprite = pygame.transform.scale(pygame.image.load('./assets/maps/soldier_ranch_16x16.png').convert(), (WIDTH, HEIGHT))
@@ -56,10 +61,12 @@ class Ranch:
         self.foods = pygame.sprite.Group()
         self.food_timer = pygame.USEREVENT + 1
         pygame.time.set_timer(self.food_timer, 40)
+        self.special_ranch = pygame.USEREVENT + 2
+        pygame.time.set_timer(self.special_ranch, 800)
         
         # player
         self.player = pygame.sprite.GroupSingle()
-        self.player.add(Player(game_over, pass_level, screen, self.foods, self.max_time, self.pause, obstacles))
+        self.player.add(Player(game_over, pass_level, screen, self.foods, self.max_time, self.pause, obstacles, self.start_special_ranch))
 
         # pause ui
         self.buttons = [
@@ -81,13 +88,34 @@ class Ranch:
         self.playing = not self.playing
 
 
+    def start_special_ranch(self):
+        self.is_special_ranch = True
+        self.special_ranch_start_time = self.player.sprite.get_current_time()
+
+
+    def stop_special_ranch(self):
+        self.is_special_ranch = False
+        self.there_is_burguer = False
+
+
     def update(self):
         pygame.display.update()
         if self.playing:
             for event in pygame.event.get():
                     if event.type == self.food_timer:
-                        self.foods.add(self.get_food()())
-        
+                        if not self.is_special_ranch:
+                            self.foods.add(self.get_food()())
+                        else:
+                            self.foods.add(Burguer())
+
+                    if event.type == self.special_ranch and not self.is_special_ranch and not self.there_is_burguer and self.level > 2:
+                        self.foods.add(Trigger_Burguer())
+                        self.there_is_burguer = True
+
+            if self.is_special_ranch:
+                if self.player.sprite.get_current_time() - self.special_ranch_start_time > 5:
+                    self.stop_special_ranch()
+
             self.screen.blit(self.map_sprite,(0,0))
         
             self.player.draw(self.screen)
