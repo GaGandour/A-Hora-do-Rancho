@@ -15,13 +15,13 @@ class Home_Page:
     def __init__(self, screen, change_screen):
         #self.map_sprite = pygame.transform.scale(pygame.image.load('./assets/maps/scenery.jpg').convert(), (WIDTH, HEIGHT))
         self.background = pygame.transform.scale(pygame.image.load('./assets/images/home_page/title_bg.png').convert(), (WIDTH, HEIGHT))
-        self.title = pygame.transform.scale2x(pygame.image.load('./assets/images/home_page/title.png').convert_alpha())
+        self.title = pygame.transform.scale(pygame.image.load('./assets/images/home_page/title.png').convert_alpha(), (662,124))
         self.moving_bg = pygame.transform.scale2x(pygame.image.load('./assets/images/home_page/moving_bg.png').convert_alpha())
         self.screen = screen
         
         self.buttons = [
             New_Menu_Button(screen, (480, 274), "Play", lambda: change_screen(Food_Choice.page_name)),
-            New_Menu_Button(screen, (480, 422), "How To Play", lambda: change_screen(Food_Choice.page_name)),
+            New_Menu_Button(screen, (480, 422), "How to Play", lambda: change_screen(Food_Choice.page_name)),
         ]
 
     def update(self):
