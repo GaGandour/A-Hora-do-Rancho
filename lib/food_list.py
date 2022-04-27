@@ -13,10 +13,10 @@ from sushi import Sushi
 FOOD_LIST = [
     Costelinha,
     Frango_Assado,
-    # Chinelao,
-    # Lagarto,
-    # Moqueca,
-    # Salsicha,
-    # Camarao,
-    # Sushi
+    Chinelao,
+    Lagarto,
+    Moqueca,
+    Salsicha,
+    Camarao,
+    Sushi
 ]
