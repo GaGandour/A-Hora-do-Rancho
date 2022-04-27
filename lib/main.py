@@ -71,10 +71,8 @@ class Game:
     def pass_level(self):
         self.level += 1
         if len(self.food_names) < len(FOOD_LIST):
-            # print("1")
             self.change_screen(Food_Choice.page_name)
         else:
-            # print("2")
             self.you_win()
 
 
