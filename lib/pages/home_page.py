@@ -14,8 +14,7 @@ class Home_Page:
 
     def __init__(self, screen, change_screen):
         #self.map_sprite = pygame.transform.scale(pygame.image.load('./assets/maps/scenery.jpg').convert(), (WIDTH, HEIGHT))
-        self.bg_surface = pygame.Surface((WIDTH,HEIGHT))
-        self.bg_surface.fill("#2e2e2e")
+        self.bg_surface = pygame.transform.scale(pygame.image.load('./assets/images/home_page/titlescreen.jpg').convert(), (WIDTH, HEIGHT))
         self.screen = screen
         
         self.buttons = [
