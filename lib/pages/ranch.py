@@ -1,4 +1,3 @@
-from turtle import Screen
 import pygame, sys, os
 from random import choice
 
@@ -8,7 +7,8 @@ sys.path.append(os.path.join(sys.path[0], 'player'))
 sys.path.append(os.path.join(sys.path[0], 'pages'))
 
 from lib.player.player import Player
-from lib.widgets.menu_button import Menu_Button
+from lib.widgets.customized_text import Customized_Text
+
 from settings import *
 from food_list import *
 
@@ -63,8 +63,8 @@ class Ranch:
 
         # pause ui
         self.buttons = [
-            Menu_Button(screen, (480, 220), "Resume", lambda: self.pause()),
-            Menu_Button(screen, (480, 320), "Go Back To Menu", lambda: self.go_to_home_page()),
+            Customized_Text(screen, (480, 220), "Resume", function = lambda: self.pause()),
+            Customized_Text(screen, (480, 320), "Go Back To Menu", function = lambda: self.go_to_home_page()),
         ]
     
 

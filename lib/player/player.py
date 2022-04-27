@@ -28,6 +28,8 @@ class Player(pygame.sprite.Sprite):
         self.max_time = max_time
         self.pass_level = pass_level
         self.pause_function = pause_function
+        self.good_food_sound = pygame.mixer.Sound("assets/sounds/goodFood.wav")
+        self.bad_food_sound = pygame.mixer.Sound("assets/sounds/badFood.wav")
 
         # player movement
         self.obstacles = obstacles
@@ -153,10 +155,12 @@ class Player(pygame.sprite.Sprite):
 
     def ate_good_food(self):
         self.change_health(+20)
+        self.good_food_sound.play()
 
 
     def ate_bad_food(self):
         self.change_sickness(+40)
+        self.bad_food_sound.play()
         
 
     def check_food_collisions(self):

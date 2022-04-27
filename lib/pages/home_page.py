@@ -4,7 +4,7 @@ sys.path.append('./')
 sys.path.append(os.path.join(sys.path[0], 'objects'))
 sys.path.append(os.path.join(sys.path[0], 'widgets'))
 from settings import *
-from new_menu_button import New_Menu_Button
+from menu_button import Menu_Button
 from math import sin, cos
 
 
@@ -20,8 +20,8 @@ class Home_Page:
         self.screen = screen
         
         self.buttons = [
-            New_Menu_Button(screen, (480, 274), "Play", lambda: change_screen(Food_Choice.page_name)),
-            New_Menu_Button(screen, (480, 422), "How To Play", lambda: change_screen(Food_Choice.page_name)),
+            Menu_Button(screen, (480, 274), "Play", lambda: change_screen(Food_Choice.page_name)),
+            Menu_Button(screen, (480, 422), "How To Play", lambda: change_screen(Food_Choice.page_name)),
         ]
 
     def update(self):

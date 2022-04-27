@@ -1,9 +1,9 @@
 import pygame, sys, os
-from food_choice import Food_Choice
 sys.path.append('./')
 sys.path.append(os.path.join(sys.path[0], 'objects'))
 sys.path.append(os.path.join(sys.path[0], 'widgets'))
 from settings import *
+from customized_text import Customized_Text
 from menu_button import Menu_Button
 
 
@@ -17,8 +17,8 @@ class You_Win_Page:
         self.screen = screen
         
         self.buttons = [
-            Menu_Button(screen, (WIDTH/2, 230), "YOU WIN!!!", lambda : None, size = 100, color='Green'),
-            Menu_Button(screen, (WIDTH/2, 330), "Go To Start Menu", go_back_to_home_function),
+            Customized_Text(screen, (WIDTH/2, 200), "YOU WIN!!!", size = 100, color='Green'),
+            Menu_Button(screen, (WIDTH/2, 360), "Start Menu", go_back_to_home_function),
         ]
         
 
