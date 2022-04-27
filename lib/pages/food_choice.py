@@ -1,10 +1,12 @@
 import pygame, sys, os
+from math import sin, cos
+
 from ranch import Ranch
 sys.path.append('./')
 sys.path.append(os.path.join(sys.path[0], 'objects'))
 from settings import *
 from choice_button import Choice_Button
-from math import sin, cos
+
 
 from food_list import FOOD_LIST
 
@@ -13,7 +15,7 @@ from food_list import FOOD_LIST
 class Food_Choice:
     page_name = "food_choice"
          
-    def __init__(self, screen, change_screen,level, add_food): #, start_function) 
+    def __init__(self, screen, change_screen, level, add_food): #, start_function) 
         #self.map_sprite = pygame.transform.scale(pygame.image.load('./assets/maps/scenery.jpg').convert(), (WIDTH, HEIGHT))
         self.level = level
         self.screen = screen
@@ -29,8 +31,7 @@ class Food_Choice:
         self.title = pygame.transform.scale2x(pygame.image.load('./assets/images/home_page/title.png').convert_alpha())
         self.moving_bg = pygame.transform.scale2x(pygame.image.load('./assets/images/home_page/moving_bg.png').convert_alpha())
 
-
-
+        
         food_index = level*2 - 2
         first_food = FOOD_LIST[food_index]
         sec_food = FOOD_LIST[food_index + 1]

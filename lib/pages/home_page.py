@@ -20,8 +20,8 @@ class Home_Page:
         self.screen = screen
         
         self.buttons = [
-            New_Menu_Button(screen, (480, 264), "Play", lambda: change_screen(Food_Choice.page_name)),
-            New_Menu_Button(screen, (480, 412), "How To Play", lambda: change_screen(Food_Choice.page_name)),
+            New_Menu_Button(screen, (480, 274), "Play", lambda: change_screen(Food_Choice.page_name)),
+            New_Menu_Button(screen, (480, 422), "How To Play", lambda: change_screen(Food_Choice.page_name)),
         ]
 
     def update(self):
@@ -29,7 +29,7 @@ class Home_Page:
         
         self.screen.blit(self.background,(0,0))
         self.screen.blit(self.moving_bg,(-250+50*cos(pygame.time.get_ticks()*0.0005),-200+50*sin(pygame.time.get_ticks()*0.0005)))
-        self.screen.blit(self.title,(152,46))
+        self.screen.blit(self.title,(152,56))
         
         if self.buttons:
             for button in self.buttons:

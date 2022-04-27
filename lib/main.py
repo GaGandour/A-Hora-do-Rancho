@@ -1,4 +1,5 @@
 import pygame, sys, os
+from random import shuffle
 
 sys.path.append(os.path.join(sys.path[0],'pages'))
 sys.path.append(os.path.join(sys.path[0],'objects'))
@@ -26,6 +27,7 @@ class Game:
         self.ranch_time_music = './assets/music/Ranch_Time.wav'
         self.menu_theme_music = './assets/music/Menu_Theme.wav'
         self.play_music(self.menu_theme_music)
+        shuffle(FOOD_LIST)
 
     
     def play_music(self, file):
@@ -69,10 +71,10 @@ class Game:
     def pass_level(self):
         self.level += 1
         if len(self.food_names) < len(FOOD_LIST):
-            print("1")
+            # print("1")
             self.change_screen(Food_Choice.page_name)
         else:
-            print("2")
+            # print("2")
             self.you_win()
 
 
@@ -84,6 +86,7 @@ class Game:
     def reset(self):
         self.level = 1
         self.food_names = []
+        shuffle(FOOD_LIST)
 
 
     def game_over(self):
