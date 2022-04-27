@@ -14,7 +14,7 @@ class Direction(Enum):
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, game_over, pass_level, screen, foods, max_time, obstacles):
+    def __init__(self, game_over, pass_level, screen, foods, max_time, pause_function, obstacles):
         super().__init__()
         self.animations = self.import_character_assets()
         self.frame_index = 0
@@ -27,6 +27,7 @@ class Player(pygame.sprite.Sprite):
         self.foods = foods
         self.max_time = max_time
         self.pass_level = pass_level
+        self.pause_function = pause_function
 
         # player movement
         self.obstacles = obstacles
@@ -44,6 +45,8 @@ class Player(pygame.sprite.Sprite):
         # ui setup
         self.ui = Player_Status_UI(self.screen)
         self.start_time = int(pygame.time.get_ticks()/1000)
+        self.liquid_time = 0
+        self.current_time = 0
 
 
     def import_character_assets(self):
@@ -71,6 +74,8 @@ class Player(pygame.sprite.Sprite):
         self.ismoving = False
         
         # check player input
+        if keys[pygame.K_ESCAPE]:
+            self.pause_function()
         if keys[pygame.K_s] or keys[pygame.K_DOWN]:
             self.direction.y += 1
         if keys[pygame.K_a] or keys[pygame.K_LEFT]:
@@ -180,24 +185,30 @@ class Player(pygame.sprite.Sprite):
             self.cur_health = 0
             self.game_over()
 
+    
+    def show_ui(self, playing):
+        self.ui.show_health(self.cur_health, self.max_health)
+        self.ui.show_sickness(self.cur_sickness, self.max_sickness)
+        if playing:
+            self.current_time = int(pygame.time.get_ticks()/1000) - self.start_time + self.liquid_time
+            if (self.current_time > self.max_time):
+                self.pass_level()
+        else:
+            self.start_time = int(pygame.time.get_ticks()/1000)
+            self.liquid_time = self.current_time
+        
+        self.ui.display_time(self.current_time)
+
 
     def update(self):
-        self.ui.show_health(self.cur_health,self.max_health)
-        self.ui.show_sickness(self.cur_sickness,self.max_sickness)
-        current_time = int(pygame.time.get_ticks()/1000) - self.start_time
-        if (current_time > self.max_time):
-            self.pass_level()
-
-        self.ui.display_time(current_time)
+        self.show_ui(True)
 
         self.decay_self()
         self.check_food_collisions()
         self.check_attributes()
- 
+    
         self.get_input()
         self.get_stance()
         self.walk()
         self.constraint_walk()
         self.animation_state()
-
-        

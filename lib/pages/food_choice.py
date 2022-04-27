@@ -1,5 +1,4 @@
 import pygame, sys, os
-from choice_button import Choice_Button
 from ranch import Ranch
 sys.path.append('./')
 sys.path.append(os.path.join(sys.path[0], 'objects'))
