@@ -10,6 +10,8 @@ from moqueca import Moqueca
 from salsicha import Salsicha
 from sushi import Sushi
 
+# Do NOT include Burguer in this list
+
 FOOD_LIST = [
     Costelinha,
     Frango_Assado,

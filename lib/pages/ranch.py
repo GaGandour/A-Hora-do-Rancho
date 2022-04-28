@@ -1,5 +1,5 @@
 import pygame, sys, os
-from random import choice
+from random import choice, randint
 
 sys.path.append('./')
 sys.path.append(os.path.join(sys.path[0], 'objects'))
@@ -8,6 +8,7 @@ sys.path.append(os.path.join(sys.path[0], 'pages'))
 
 from lib.player.player import Player
 from lib.widgets.menu_button import Menu_Button
+from lib.widgets.customized_text import Customized_Text
 from lib.objects.trigger_burguer import Trigger_Burguer
 from lib.objects.burguer import Burguer
 
@@ -28,7 +29,8 @@ class Ranch:
         self.is_special_ranch = False
         self.there_is_burguer = False
         self.special_ranch_start_time = 0
-        self.is_blind = True
+        self.blackout_start_time = randint(7,18)
+        self.is_blind = False
         
         # layout setup
         self.map_sprite = pygame.transform.scale(pygame.image.load('./assets/maps/soldier_ranch_16x16.png').convert(), (WIDTH, HEIGHT))
@@ -52,7 +54,7 @@ class Ranch:
         
         self.pause_surface = pygame.Surface((WIDTH,HEIGHT))  # the size of your rect
         self.pause_surface.fill("#2e2e2e")  # this fills the entire surface
-        self.pause_surface.set_alpha(156)                # alpha level
+        self.pause_surface.set_alpha(156)   # alpha level
 
         # level attributes
         self.level = level
@@ -60,23 +62,24 @@ class Ranch:
         # foods
         self.food_names = food_names
         self.foods = pygame.sprite.Group()
-        self.food_timer = pygame.USEREVENT + 1
-        pygame.time.set_timer(self.food_timer, 24 - 3*level)
-        self.special_ranch = pygame.USEREVENT + 2
-        pygame.time.set_timer(self.special_ranch, 400)
+        self.food_event = pygame.USEREVENT + 1
+        pygame.time.set_timer(self.food_event, 24 - 3*level)
+        self.special_ranch_event = pygame.USEREVENT + 2
+        pygame.time.set_timer(self.special_ranch_event, 400)
         
         # player
         self.player = pygame.sprite.GroupSingle()
         self.player.add(Player(game_over, pass_level, screen, self.foods, self.max_time, self.pause, obstacles, self.start_special_ranch))
 
         # pause ui
-        self.buttons = [
+        self.pause_buttons = [
             Menu_Button(screen, (480, 200), "Resume", function = lambda: self.pause()),
             Menu_Button(screen, (480, 360), "Back To Menu", function = lambda: self.go_to_home_page()),
         ]
+        
+        self.blind_text = Customized_Text(screen, (480, 500), "Power's out!!!")
     
 
-        
     def get_food(self):
         food_dictionary = {}
         for food in FOOD_LIST:
@@ -98,24 +101,40 @@ class Ranch:
         self.is_special_ranch = False
         self.there_is_burguer = False
 
+    
+    def blackout(self):
+        self.is_blind = True
+        pygame.mixer.Sound(BLACKOUT_SOUND).play()
+
+    
+    def unblackout(self):
+        self.is_blind = False
+
 
     def update(self):
         pygame.display.update()
         if self.playing:
             for event in pygame.event.get():
-                    if event.type == self.food_timer:
+                    if event.type == self.food_event:
                         if not self.is_special_ranch:
                             self.foods.add(self.get_food()())
                         else:
                             self.foods.add(Burguer())
 
-                    if event.type == self.special_ranch and not self.is_special_ranch and not self.there_is_burguer and self.level >= 3:
+                    if event.type == self.special_ranch_event and not self.is_special_ranch and not self.there_is_burguer and self.level >= 2:
                         self.foods.add(Trigger_Burguer())
                         self.there_is_burguer = True
+
+                    if self.blackout_start_time == self.player.sprite.get_current_time() and not self.is_blind and self.level >= 3:
+                        self.blackout()
 
             if self.is_special_ranch:
                 if self.player.sprite.get_current_time() - self.special_ranch_start_time > 5:
                     self.stop_special_ranch()
+
+            if self.is_blind:
+                if self.player.sprite.get_current_time() - self.blackout_start_time > 10:
+                    self.unblackout()
 
             self.screen.blit(self.map_sprite,(0,0))
         
@@ -146,7 +165,9 @@ class Ranch:
                 
             self.screen.blit(self.pause_surface, (0,0))
 
-            if self.buttons:
-                for button in self.buttons:
+            if self.pause_buttons:
+                for button in self.pause_buttons:
                     button.update()
         
+        if self.is_blind:
+            self.blind_text.update()

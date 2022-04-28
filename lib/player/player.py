@@ -32,8 +32,8 @@ class Player(pygame.sprite.Sprite):
         self.pass_level = pass_level
         self.pause_function = pause_function
         self.start_special_ranch_function = start_special_ranch_function
-        self.good_food_sound = pygame.mixer.Sound("assets/sounds/goodFood.wav")
-        self.bad_food_sound = pygame.mixer.Sound("assets/sounds/badFood.wav")
+        self.good_food_sound = pygame.mixer.Sound(GOOD_FOOD_SOUND)
+        self.bad_food_sound = pygame.mixer.Sound(BAD_FOOD_SOUND)
 
         # player movement
         self.obstacles = obstacles
@@ -214,12 +214,13 @@ class Player(pygame.sprite.Sprite):
         
         self.ui.display_time(self.current_time)
 
+
     def remove_vision(self):
         self.screen.blit(self.novision,(self.rect.x-WIDTH+20,self.rect.y-HEIGHT+10))
 
+
     def update(self):
         # self.show_ui(True)
-        
         self.decay_self()
         self.check_food_collisions()
         self.check_attributes()

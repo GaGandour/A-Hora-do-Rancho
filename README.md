@@ -38,6 +38,10 @@ The spawning rate of the food also increases slightly over the levels.
 
 Sometimes, a burger may appear. This is the *Rancho Especial* power-up. If the player eats this burger, only burgers will spawn for the next 5 in-game minutes (the in-game time is indicaded by the clock on the top-right corner, and one in-game minute lasts for, approximately, one second). A burger is always a good food.
 
+### Blackout!
+
+Sometimes, the power may go out. When this happens, visibility is reduced for a certain amount of time. Eventually, the lights will be fixed and visibility will go back to normal.
+
 ## Architecture
 
 ### Folder Organization
@@ -67,6 +71,8 @@ Finally, the `ranch.py` page communicates with the `player.py` file in the `play
 ### Music and Sound Effects
 
 Both tracks *`Menu_Theme.wav`* and *`Ranch_Time.wav`* were composed by Gabriel Gandour (`gagandour@gmail.com`). The eating sound effects *`badFood.wav`* and *`goodFood.wav`* were recorded by the group.
+
+However, the *`BlackOut.wav`* sound effect was extracted from the youtube video at [https://www.youtube.com/watch?v=ET7lSa9GgA0](https://www.youtube.com/watch?v=ET7lSa9GgA0).
 
 ### Graphic Art and Design
 
