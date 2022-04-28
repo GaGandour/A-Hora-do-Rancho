@@ -60,7 +60,7 @@ class Ranch:
         self.food_names = food_names
         self.foods = pygame.sprite.Group()
         self.food_timer = pygame.USEREVENT + 1
-        pygame.time.set_timer(self.food_timer, 20)
+        pygame.time.set_timer(self.food_timer, 24 - 3*level)
         self.special_ranch = pygame.USEREVENT + 2
         pygame.time.set_timer(self.special_ranch, 400)
         
