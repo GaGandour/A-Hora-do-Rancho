@@ -1,6 +1,7 @@
 import pygame, sys, os
 from random import shuffle
 
+
 sys.path.append(os.path.join(sys.path[0],'pages'))
 sys.path.append(os.path.join(sys.path[0],'objects'))
 
@@ -11,7 +12,9 @@ from home_page import Home_Page
 from food_choice import Food_Choice
 from ranch import Ranch
 from game_over import Game_Over
+from how_to_play import How_To_Play
 from you_win_page import You_Win_Page
+
 
 class Game:
     def __init__(self):
@@ -57,7 +60,8 @@ class Game:
             Ranch.page_name : Ranch(self.screen, self.level, self.food_names, self.go_to_home_page, self.pass_level, self.game_over),
             Food_Choice.page_name : Food_Choice(self.screen,  self.change_screen, self.level, self.add_food),
             Game_Over.page_name : Game_Over(self.screen, self.go_to_home_page),
-            You_Win_Page.page_name : You_Win_Page(self.screen, self.go_to_home_page)
+            You_Win_Page.page_name : You_Win_Page(self.screen, self.go_to_home_page),
+            How_To_Play.page_name : How_To_Play(self.screen, self.change_screen)
         }.get(screen_name, Home_Page.page_name)
         if screen_name == Ranch.page_name and self.level == 1:
             self.play_music(self.ranch_time_music)

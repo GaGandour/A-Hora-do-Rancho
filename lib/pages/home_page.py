@@ -1,5 +1,6 @@
 import pygame, sys, os
 from food_choice import Food_Choice
+from how_to_play import How_To_Play
 sys.path.append('./')
 sys.path.append(os.path.join(sys.path[0], 'objects'))
 sys.path.append(os.path.join(sys.path[0], 'widgets'))
@@ -32,7 +33,7 @@ class Home_Page:
         
         self.buttons = [
             Menu_Button(screen, (480, 274), "Play", lambda: change_screen(Food_Choice.page_name)),
-            Menu_Button(screen, (480, 422), "How To Play", lambda: change_screen(Food_Choice.page_name)),
+            Menu_Button(screen, (480, 422), "How To Play", lambda: change_screen(How_To_Play.page_name)),
             Customized_Text(screen, (780, 190), random_text, size=20, color='Yellow', rotation=20, pulse=True),
         ]
 
