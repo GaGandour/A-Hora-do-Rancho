@@ -77,7 +77,7 @@ class Ranch:
             Menu_Button(screen, (480, 360), "Back To Menu", function = lambda: self.go_to_home_page()),
         ]
         
-        self.blind_text = Customized_Text(screen, (480, 520), "Power's out!!!")
+        self.blind_text = Customized_Text(screen, (480, 500), "Power's out!!!")
     
 
     def get_food(self):

@@ -5,6 +5,7 @@ from random import shuffle
 
 sys.path.append(os.path.join(sys.path[0],'pages'))
 sys.path.append(os.path.join(sys.path[0],'objects'))
+sys.path.append(os.path.join(sys.path[0],'widgets'))
 
 from settings import *
 from food_list import FOOD_LIST
@@ -15,6 +16,8 @@ from ranch import Ranch
 from game_over import Game_Over
 from how_to_play import How_To_Play
 from you_win_page import You_Win_Page
+
+from customized_text import Customized_Text
 
 
 class Game:
@@ -77,8 +80,11 @@ class Game:
         self.level += 1
         if len(self.food_names) < len(FOOD_LIST):
             self.change_screen(Food_Choice.page_name)
+            pass_level_text = Customized_Text(self.screen, (480, 500), "Congratulations! You survived one more meal at the Ranch!", size=28, color='LightGreen')
             pygame.mixer.music.pause()
             sound = pygame.mixer.Sound(LEVEL_PASSING_THEME)
+            pass_level_text.update()
+            pygame.display.update()
             sound.play()
             duration = sound.get_length()
             sleep(duration)
