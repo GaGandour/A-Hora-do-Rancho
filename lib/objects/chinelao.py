@@ -5,12 +5,14 @@ from math import sqrt
 
 class Chinelao(Food):
     food_name = "chinelao"
+    path = "./assets/images/food/big_flop.png"
     is_good = False
 
     def __init__(self):
         super().__init__()
-        temp_image = pygame.image.load('./assets/images/pork.png').convert_alpha()
+        temp_image = pygame.image.load(Chinelao.path).convert_alpha()
         self.image = pygame.transform.scale(temp_image, (30,30))
+        self.mask = pygame.mask.from_surface(self.image)
 
         if self.x_speed != 0 and self.y_speed != 0:
             self.x_speed = round(self.x_speed/sqrt(2))

@@ -1,10 +1,12 @@
 import pygame, sys, os
 sys.path.append('./')
 sys.path.append(os.path.join(sys.path[0], 'widgets'))
+sys.path.append(os.path.join(sys.path[0], 'objects'))
 from settings import *
 from support import import_folder
 from player_status_ui import Player_Status_UI
 from enum import Enum
+from trigger_burguer import Trigger_Burguer
 
 class Direction(Enum):
     down = "down"
@@ -14,20 +16,26 @@ class Direction(Enum):
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, game_over, pass_level, screen, foods, max_time):
+    def __init__(self, game_over, pass_level, screen, foods, max_time, pause_function, obstacles, start_special_ranch_function):
         super().__init__()
         self.animations = self.import_character_assets()
         self.frame_index = 0
         self.animation_speed = 0.15
         self.image = self.animations[Direction.down][self.frame_index]
-        self.rect = self.image.get_rect(center = (0.5 * WIDTH, 0.5 * HEIGHT))
+        self.rect = self.image.get_rect(center = (0.4 * WIDTH, 0.5 * HEIGHT))
+        self.mask = pygame.mask.from_surface(self.image)
         self.game_over = game_over
         self.screen = screen
         self.foods = foods
         self.max_time = max_time
         self.pass_level = pass_level
+        self.pause_function = pause_function
+        self.start_special_ranch_function = start_special_ranch_function
+        self.good_food_sound = pygame.mixer.Sound("assets/sounds/goodFood.wav")
+        self.bad_food_sound = pygame.mixer.Sound("assets/sounds/badFood.wav")
 
         # player movement
+        self.obstacles = obstacles
         self.direction = pygame.math.Vector2(0,0)
         self.speed = 3
         self.ismoving = False
@@ -42,6 +50,8 @@ class Player(pygame.sprite.Sprite):
         # ui setup
         self.ui = Player_Status_UI(self.screen)
         self.start_time = int(pygame.time.get_ticks()/1000)
+        self.liquid_time = 0
+        self.current_time = 0
 
 
     def import_character_assets(self):
@@ -69,6 +79,8 @@ class Player(pygame.sprite.Sprite):
         self.ismoving = False
         
         # check player input
+        if keys[pygame.K_ESCAPE]:
+            self.pause_function()
         if keys[pygame.K_s] or keys[pygame.K_DOWN]:
             self.direction.y += 1
         if keys[pygame.K_a] or keys[pygame.K_LEFT]:
@@ -82,16 +94,6 @@ class Player(pygame.sprite.Sprite):
         if self.direction != (0,0):
             self.ismoving = True
 
-        # constrain to ranch
-        if self.rect.bottom > HEIGHT-16:
-            self.rect.bottom = HEIGHT-16
-        if self.rect.left < 32:
-            self.rect.left = 32
-        if self.rect.top < 80:
-            self.rect.top = 80    
-        if self.rect.right > WIDTH-32:
-            self.rect.right = WIDTH-32
-
 
     def get_stance(self):
         if self.direction.x > 0:
@@ -104,6 +106,10 @@ class Player(pygame.sprite.Sprite):
             self.stance = Direction.up
 
 
+    def get_current_time(self):
+        return self.current_time
+
+
     def walk(self):
         if self.ismoving:
             if self.direction.x * self.direction.y == 0:
@@ -112,6 +118,20 @@ class Player(pygame.sprite.Sprite):
             else:
                 self.rect.x += round(self.speed * 0.707 * self.direction.x)
                 self.rect.y += round(self.speed * 0.707 * self.direction.y)
+
+
+    def constraint_walk(self):
+        if self.ismoving:
+            for rect in self.obstacles:
+                if self.rect.colliderect(rect):
+                    if 0 < self.rect.right - rect.left < self.speed+1:
+                        self.rect.right = rect.left
+                    if 0 < rect.right - self.rect.left < self.speed+1:
+                        self.rect.left = rect.right
+                    if 0 < self.rect.bottom - rect.top < self.speed+1:
+                        self.rect.bottom = rect.top
+                    if 0 < rect.bottom - self.rect.top < self.speed+1:
+                        self.rect.top = rect.bottom
 
 
     def animation_state(self):
@@ -142,17 +162,25 @@ class Player(pygame.sprite.Sprite):
 
     def ate_good_food(self):
         self.change_health(+20)
+        self.good_food_sound.play()
 
 
     def ate_bad_food(self):
         self.change_sickness(+40)
+        self.bad_food_sound.play()
         
 
     def check_food_collisions(self):
         food_collisions = pygame.sprite.spritecollide(self,self.foods,False)
         if food_collisions:
-            for food in food_collisions:
-                if food.is_good == True:
+            # only check mask_collision when there are rect collisions
+            # otherwise it can get laggy when there are lots of foods
+            mask_collisions = pygame.sprite.spritecollide(self,food_collisions,False,pygame.sprite.collide_mask)
+            for food in mask_collisions:
+                if food.food_name == Trigger_Burguer.food_name:
+                    self.ate_good_food()
+                    self.start_special_ranch_function()
+                elif food.is_good == True:
                     self.ate_good_food()
                 else:
                     self.ate_bad_food()
@@ -171,23 +199,30 @@ class Player(pygame.sprite.Sprite):
             self.cur_health = 0
             self.game_over()
 
+    
+    def show_ui(self, playing):
+        self.ui.show_health(self.cur_health, self.max_health)
+        self.ui.show_sickness(self.cur_sickness, self.max_sickness)
+        if playing:
+            self.current_time = int(pygame.time.get_ticks()/1000) - self.start_time + self.liquid_time
+            if (self.current_time > self.max_time):
+                self.pass_level()
+        else:
+            self.start_time = int(pygame.time.get_ticks()/1000)
+            self.liquid_time = self.current_time
+        
+        self.ui.display_time(self.current_time)
+
 
     def update(self):
-        self.ui.show_health(self.cur_health,self.max_health)
-        self.ui.show_sickness(self.cur_sickness,self.max_sickness)
-        current_time = int(pygame.time.get_ticks()/1000) - self.start_time
-        if (current_time > self.max_time):
-            self.pass_level()
-
-        self.ui.display_time(current_time)
+        self.show_ui(True)
 
         self.decay_self()
         self.check_food_collisions()
         self.check_attributes()
- 
+    
         self.get_input()
         self.get_stance()
         self.walk()
+        self.constraint_walk()
         self.animation_state()
-
-        
