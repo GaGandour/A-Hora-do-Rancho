@@ -13,3 +13,4 @@ LEVEL_PASSING_THEME = "assets/music/Level_Passing.wav"
 
 GOOD_FOOD_SOUND = "assets/sounds/goodFood.wav"
 BAD_FOOD_SOUND = "assets/sounds/badFood.wav"
+BLACKOUT_SOUND = "assets/sounds/blackOut.wav"

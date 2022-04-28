@@ -1,5 +1,5 @@
 import pygame, sys, os
-from random import choice
+from random import choice, randint
 
 sys.path.append('./')
 sys.path.append(os.path.join(sys.path[0], 'objects'))
@@ -29,7 +29,7 @@ class Ranch:
         self.is_special_ranch = False
         self.there_is_burguer = False
         self.special_ranch_start_time = 0
-        self.blackout_start_time = 0
+        self.blackout_start_time = randint(7,18)
         self.is_blind = False
         
         # layout setup
@@ -66,8 +66,6 @@ class Ranch:
         pygame.time.set_timer(self.food_event, 24 - 3*level)
         self.special_ranch_event = pygame.USEREVENT + 2
         pygame.time.set_timer(self.special_ranch_event, 400)
-        self.blackout_event = pygame.USEREVENT + 3
-        pygame.time.set_timer(self.blackout_event, millis = 1000)
         
         # player
         self.player = pygame.sprite.GroupSingle()
@@ -106,6 +104,7 @@ class Ranch:
     
     def blackout(self):
         self.is_blind = True
+        pygame.mixer.Sound(BLACKOUT_SOUND).play()
 
     
     def unblackout(self):
@@ -126,8 +125,7 @@ class Ranch:
                         self.foods.add(Trigger_Burguer())
                         self.there_is_burguer = True
 
-                    if event.type == self.blackout_event and not self.is_blind and self.level >= 3:
-                        self.blackout_start_time = self.player.sprite.get_current_time()
+                    if self.blackout_start_time == self.player.sprite.get_current_time() and not self.is_blind and self.level >= 3:
                         self.blackout()
 
             if self.is_special_ranch:
