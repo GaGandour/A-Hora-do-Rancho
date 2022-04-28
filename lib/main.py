@@ -1,3 +1,4 @@
+from time import sleep
 import pygame, sys, os
 from random import shuffle
 
@@ -26,8 +27,8 @@ class Game:
         self.screen_name = Home_Page.page_name
         self.food_names = []
         self.page = Home_Page(self.screen,self.change_screen)
-        self.ranch_time_music = './assets/music/Ranch_Time.wav'
-        self.menu_theme_music = './assets/music/Menu_Theme.wav'
+        self.ranch_time_music = RANCH_THEME
+        self.menu_theme_music = MENU_THEME
         self.play_music(self.menu_theme_music)
         shuffle(FOOD_LIST)
 
@@ -54,6 +55,7 @@ class Game:
 
 
     def change_screen(self, screen_name):
+        old_screen_name = self.screen_name
         self.screen_name = screen_name
         self.page = {
             Home_Page.page_name : Home_Page(self.screen, self.change_screen),
@@ -67,7 +69,7 @@ class Game:
             self.play_music(self.ranch_time_music)
         if screen_name == Game_Over.page_name:
             self.stop_music()
-        if screen_name == Home_Page.page_name:
+        if screen_name == Home_Page.page_name and old_screen_name != How_To_Play.page_name:
             self.play_music(self.menu_theme_music) 
 
 
@@ -75,6 +77,12 @@ class Game:
         self.level += 1
         if len(self.food_names) < len(FOOD_LIST):
             self.change_screen(Food_Choice.page_name)
+            pygame.mixer.music.pause()
+            sound = pygame.mixer.Sound(LEVEL_PASSING_THEME)
+            sound.play()
+            duration = sound.get_length()
+            sleep(duration)
+            pygame.mixer.music.unpause()
         else:
             self.you_win()
 
@@ -82,6 +90,10 @@ class Game:
     def you_win(self):
         self.reset()
         self.change_screen(You_Win_Page.page_name)
+        
+        pygame.mixer.music.stop()
+        pygame.mixer.music.load(VICTORY_THEME)
+        pygame.mixer.music.play()
 
 
     def reset(self):
@@ -94,6 +106,10 @@ class Game:
         self.change_screen(Game_Over.page_name)
         self.reset()
 
+        pygame.mixer.music.stop()
+        pygame.mixer.music.load(GAME_OVER_THEME)
+        pygame.mixer.music.play()
+        
 
     def go_to_home_page(self):
         self.change_screen(Home_Page.page_name)
