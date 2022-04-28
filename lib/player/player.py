@@ -218,8 +218,6 @@ class Player(pygame.sprite.Sprite):
         self.screen.blit(self.novision,(self.rect.x-WIDTH+20,self.rect.y-HEIGHT+10))
 
     def update(self):
-        # self.show_ui(True)
-        
         self.decay_self()
         self.check_food_collisions()
         self.check_attributes()
