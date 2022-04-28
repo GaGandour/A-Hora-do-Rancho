@@ -4,7 +4,7 @@ from settings import *
 from math import sqrt
 
 class Salsicha(Food):
-    food_name = "salsicha"
+    food_name = "Salsicha"
     path = "./assets/images/food/sausage.png"
     is_good = False
 

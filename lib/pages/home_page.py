@@ -17,17 +17,17 @@ class Home_Page:
     def __init__(self, screen, change_screen):
         #self.map_sprite = pygame.transform.scale(pygame.image.load('./assets/maps/scenery.jpg').convert(), (WIDTH, HEIGHT))
         self.background = pygame.transform.scale(pygame.image.load('./assets/images/home_page/title_bg.png').convert(), (WIDTH, HEIGHT))
-        self.title = pygame.transform.scale2x(pygame.image.load('./assets/images/home_page/title.png').convert_alpha())
+        self.title = pygame.transform.scale(pygame.image.load('./assets/images/home_page/title.png').convert_alpha(), (662,124))
         self.moving_bg = pygame.transform.scale2x(pygame.image.load('./assets/images/home_page/moving_bg.png').convert_alpha())
         self.screen = screen
 
         random_text = choice([
-            'Almoco gratis!',
-            'Soh Iguaria!',
+            'Almoço grátis!',
+            'Só iguaria!',
             'Melhor lugar para comer!',
             '9 a cada 10 estudantes recomendam!',
             'Uhuuuuu!!!',
-            'Trouxe o crachah?',
+            'Trouxe o crachá?',
             '"Moqueca de novo???"',
         ])
         

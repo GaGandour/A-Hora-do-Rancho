@@ -28,6 +28,7 @@ class Ranch:
         self.is_special_ranch = False
         self.there_is_burguer = False
         self.special_ranch_start_time = 0
+        self.is_blind = True
         
         # layout setup
         self.map_sprite = pygame.transform.scale(pygame.image.load('./assets/maps/soldier_ranch_16x16.png').convert(), (WIDTH, HEIGHT))
@@ -60,9 +61,9 @@ class Ranch:
         self.food_names = food_names
         self.foods = pygame.sprite.Group()
         self.food_timer = pygame.USEREVENT + 1
-        pygame.time.set_timer(self.food_timer, 40)
+        pygame.time.set_timer(self.food_timer, 24 - 3*level)
         self.special_ranch = pygame.USEREVENT + 2
-        pygame.time.set_timer(self.special_ranch, 800)
+        pygame.time.set_timer(self.special_ranch, 400)
         
         # player
         self.player = pygame.sprite.GroupSingle()
@@ -108,7 +109,7 @@ class Ranch:
                         else:
                             self.foods.add(Burguer())
 
-                    if event.type == self.special_ranch and not self.is_special_ranch and not self.there_is_burguer and self.level > 2:
+                    if event.type == self.special_ranch and not self.is_special_ranch and not self.there_is_burguer and self.level >= 3:
                         self.foods.add(Trigger_Burguer())
                         self.there_is_burguer = True
 
@@ -120,11 +121,16 @@ class Ranch:
         
             self.player.draw(self.screen)
             self.player.update()
-
+            
             self.screen.blit(self.map_sprite_always_on_top,(0,0))
 
             self.foods.draw(self.screen)
             self.foods.update()
+            
+            if self.is_blind:
+                self.player.sprite.remove_vision()
+
+            self.player.sprite.show_ui(True)
         else:
             self.screen.blit(self.map_sprite,(0,0))
 
@@ -135,6 +141,9 @@ class Ranch:
 
             self.foods.draw(self.screen)
 
+            if self.is_blind:
+                self.player.sprite.remove_vision()
+                
             self.screen.blit(self.pause_surface, (0,0))
 
             if self.buttons:

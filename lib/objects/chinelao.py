@@ -4,7 +4,7 @@ from settings import *
 from math import sqrt
 
 class Chinelao(Food):
-    food_name = "chinelao"
+    food_name = "Chinelão"
     path = "./assets/images/food/big_flop.png"
     is_good = False
 

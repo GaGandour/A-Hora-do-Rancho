@@ -23,6 +23,7 @@ class Player(pygame.sprite.Sprite):
         self.animation_speed = 0.15
         self.image = self.animations[Direction.down][self.frame_index]
         self.rect = self.image.get_rect(center = (0.4 * WIDTH, 0.5 * HEIGHT))
+        self.novision = pygame.transform.scale(pygame.image.load('./assets/images/player/no_vision.png').convert_alpha(), (2*WIDTH, 2*HEIGHT))
         self.mask = pygame.mask.from_surface(self.image)
         self.game_over = game_over
         self.screen = screen
@@ -213,10 +214,12 @@ class Player(pygame.sprite.Sprite):
         
         self.ui.display_time(self.current_time)
 
+    def remove_vision(self):
+        self.screen.blit(self.novision,(self.rect.x-WIDTH+20,self.rect.y-HEIGHT+10))
 
     def update(self):
-        self.show_ui(True)
-
+        # self.show_ui(True)
+        
         self.decay_self()
         self.check_food_collisions()
         self.check_attributes()
@@ -226,3 +229,4 @@ class Player(pygame.sprite.Sprite):
         self.walk()
         self.constraint_walk()
         self.animation_state()
+        
