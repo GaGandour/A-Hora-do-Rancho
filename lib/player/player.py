@@ -220,7 +220,6 @@ class Player(pygame.sprite.Sprite):
 
 
     def update(self):
-        # self.show_ui(True)
         self.decay_self()
         self.check_food_collisions()
         self.check_attributes()

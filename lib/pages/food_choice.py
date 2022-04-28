@@ -9,6 +9,8 @@ from settings import *
 from choice_button import Choice_Button
 from customized_text import Customized_Text
 from ranch import Ranch
+from back_button import Back_Button
+
 
 from food_list import FOOD_LIST
 
@@ -37,6 +39,8 @@ class Food_Choice:
                 Customized_Text(screen, (484, 104), "Escolha sua comida preferida!", size = 36, color = '#221308'),
                 Customized_Text(screen, (480, 100), "Escolha sua comida preferida!", size = 36, color = 'White')
             ]
+        if level == 1:
+            self.buttons.append(Back_Button(screen, (32, 32), lambda: change_screen("home page")))
     
     @staticmethod
     def set_preferences(food_class1, food_class2, preference):
