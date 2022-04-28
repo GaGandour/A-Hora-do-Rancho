@@ -10,5 +10,5 @@ from home_page import Home_Page
 from game_test import Game_Test
 
 if __name__ == '__main__':
-    game = Game_Test(Home_Page.page_name)
+    game = Game_Test(Home_Page.page_name, mute=False)
     game.run()
