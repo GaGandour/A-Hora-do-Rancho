@@ -4,7 +4,7 @@ from settings import *
 from math import sqrt
 
 class Burguer(Food):
-    food_name = "hamburguer"
+    food_name = "Hamburger"
     path = "./assets/images/food/hamburger.png"
     is_good = True
 

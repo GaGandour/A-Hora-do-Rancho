@@ -7,7 +7,7 @@ class Choice_Button:
         # setup 
         self.screen = screen
         self.function = function 
-        size = 24
+        size = 27
         color = '#221308'
         self.position = position
         self.text_position = (position[0], position[1] + 60)

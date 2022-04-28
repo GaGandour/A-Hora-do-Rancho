@@ -21,12 +21,12 @@ class Home_Page:
         self.screen = screen
 
         random_text = choice([
-            'Almoco gratis!',
-            'Soh Iguaria!',
+            'Almoço grátis!',
+            'Só iguaria!',
             'Melhor lugar para comer!',
             '9 a cada 10 estudantes recomendam!',
             'Uhuuuuu!!!',
-            'Trouxe o crachah?',
+            'Trouxe o crachá?',
             '"Moqueca de novo???"',
         ])
         
