@@ -19,7 +19,7 @@ class Food_Choice:
         #self.map_sprite = pygame.transform.scale(pygame.image.load('./assets/maps/scenery.jpg').convert(), (WIDTH, HEIGHT))
         self.level = level
         self.screen = screen
-        text_font = pygame.font.Font('./assets/fonts/ARCADEPI.ttf',36)
+        text_font = pygame.font.Font(PIXELED_FONT,36)
         self.text_surf = text_font.render('Escolha sua comida preferida!', False, 'White')
         self.text_rect = self.text_surf.get_rect(center = (480,100))
         self.shadow_surf = text_font.render('Escolha sua comida preferida!', False, '#221308')
