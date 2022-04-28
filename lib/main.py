@@ -3,7 +3,6 @@ from random import shuffle
 
 sys.path.append(os.path.join(sys.path[0],'pages'))
 sys.path.append(os.path.join(sys.path[0],'objects'))
-# from playsound import playsound
 
 from settings import *
 from food_list import FOOD_LIST
@@ -71,10 +70,8 @@ class Game:
     def pass_level(self):
         self.level += 1
         if len(self.food_names) < len(FOOD_LIST):
-            # print("1")
             self.change_screen(Food_Choice.page_name)
         else:
-            # print("2")
             self.you_win()
 
 

@@ -4,9 +4,10 @@ sys.path.append('./')
 sys.path.append(os.path.join(sys.path[0], 'objects'))
 sys.path.append(os.path.join(sys.path[0], 'widgets'))
 from settings import *
-from new_menu_button import New_Menu_Button
+from menu_button import Menu_Button
+from customized_text import Customized_Text
 from math import sin, cos
-
+from random import choice
 
 
 class Home_Page:
@@ -18,10 +19,21 @@ class Home_Page:
         self.title = pygame.transform.scale(pygame.image.load('./assets/images/home_page/title.png').convert_alpha(), (662,124))
         self.moving_bg = pygame.transform.scale2x(pygame.image.load('./assets/images/home_page/moving_bg.png').convert_alpha())
         self.screen = screen
+
+        random_text = choice([
+            'Almoco gratis!',
+            'Soh Iguaria!',
+            'Melhor lugar para comer!',
+            '9 a cada 10 estudantes recomendam!',
+            'Uhuuuuu!!!',
+            'Trouxe o crachah?',
+            '"Moqueca de novo???"',
+        ])
         
         self.buttons = [
-            New_Menu_Button(screen, (480, 274), "Play", lambda: change_screen(Food_Choice.page_name)),
-            New_Menu_Button(screen, (480, 422), "How to Play", lambda: change_screen(Food_Choice.page_name)),
+            Menu_Button(screen, (480, 274), "Play", lambda: change_screen(Food_Choice.page_name)),
+            Menu_Button(screen, (480, 422), "How To Play", lambda: change_screen(Food_Choice.page_name)),
+            Customized_Text(screen, (780, 190), random_text, size=20, color='Yellow', rotation=20, pulse=True),
         ]
 
     def update(self):
