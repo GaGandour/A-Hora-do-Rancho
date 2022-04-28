@@ -1,5 +1,6 @@
 import pygame, sys, os
 from food_choice import Food_Choice
+from how_to_play import How_To_Play
 sys.path.append('./')
 sys.path.append(os.path.join(sys.path[0], 'objects'))
 sys.path.append(os.path.join(sys.path[0], 'widgets'))
@@ -16,23 +17,23 @@ class Home_Page:
     def __init__(self, screen, change_screen):
         #self.map_sprite = pygame.transform.scale(pygame.image.load('./assets/maps/scenery.jpg').convert(), (WIDTH, HEIGHT))
         self.background = pygame.transform.scale(pygame.image.load('./assets/images/home_page/title_bg.png').convert(), (WIDTH, HEIGHT))
-        self.title = pygame.transform.scale2x(pygame.image.load('./assets/images/home_page/title.png').convert_alpha())
+        self.title = pygame.transform.scale(pygame.image.load('./assets/images/home_page/title.png').convert_alpha(), (662,124))
         self.moving_bg = pygame.transform.scale2x(pygame.image.load('./assets/images/home_page/moving_bg.png').convert_alpha())
         self.screen = screen
 
         random_text = choice([
-            'Almoco gratis!',
-            'Soh Iguaria!',
+            'Almoço grátis!',
+            'Só iguaria!',
             'Melhor lugar para comer!',
             '9 a cada 10 estudantes recomendam!',
             'Uhuuuuu!!!',
-            'Trouxe o crachah?',
+            'Trouxe o crachá?',
             '"Moqueca de novo???"',
         ])
         
         self.buttons = [
             Menu_Button(screen, (480, 274), "Play", lambda: change_screen(Food_Choice.page_name)),
-            Menu_Button(screen, (480, 422), "How To Play", lambda: change_screen(Food_Choice.page_name)),
+            Menu_Button(screen, (480, 422), "How To Play", lambda: change_screen(How_To_Play.page_name)),
             Customized_Text(screen, (780, 190), random_text, size=20, color='Yellow', rotation=20, pulse=True),
         ]
 

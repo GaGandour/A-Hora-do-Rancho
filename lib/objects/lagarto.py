@@ -3,7 +3,7 @@ import pygame
 from math import sqrt
 
 class Lagarto(Food):
-    food_name = "lagarto"
+    food_name = "Lagarto"
     path = "./assets/images/food/beef.png"
     is_good = False
 

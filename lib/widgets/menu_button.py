@@ -7,7 +7,7 @@ class Menu_Button:
         # setup 
         self.screen = screen
         self.function = function 
-        size = 32
+        size = 36
         color = '#221308'
         self.position = position
         

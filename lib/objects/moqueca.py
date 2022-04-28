@@ -4,7 +4,7 @@ from settings import *
 from math import sqrt
 
 class Moqueca(Food):
-    food_name = "moqueca"
+    food_name = "Moqueca"
     path = "./assets/images/food/fish.png"
     is_good = False
 

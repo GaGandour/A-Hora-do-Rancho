@@ -5,7 +5,7 @@ from random import choice
 
 class Trigger_Burguer(Food):
     food_name = "rancho especial"
-    path = "./assets/images/food/burguer.jpg"
+    path = "./assets/images/food/hamburger.png"
     is_good = True
 
     def __init__(self):
@@ -17,17 +17,17 @@ class Trigger_Burguer(Food):
         self.x_speed = self.y_speed = 0
 
         (self.x_spawn, self.y_spawn) = choice([
-            (45,45),
-            (WIDTH-45,45),
-            (45,HEIGHT-45),
-            (WIDTH-45,HEIGHT-45),
-            (WIDTH/3,45),
-            (WIDTH/3,HEIGHT-45),
-            (2*WIDTH/3,45),
-            (2*WIDTH/3,HEIGHT-45),
+            (45,110),
+            (WIDTH-60,110),
+            (45,HEIGHT-30),
+            (WIDTH-45,HEIGHT-30),
+            (WIDTH/3,110),
+            (WIDTH/3,HEIGHT-30),
+            (2*WIDTH/3,110),
+            (2*WIDTH/3,HEIGHT-30),
         ])
 
-        self.rect = self.image.get_rect(topleft = (self.x_spawn, self.y_spawn))
+        self.rect = self.image.get_rect(center = (self.x_spawn, self.y_spawn))
 
 
     def update(self):
