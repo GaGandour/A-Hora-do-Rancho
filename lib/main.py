@@ -79,16 +79,29 @@ class Game:
     def pass_level(self):
         self.level += 1
         if len(self.food_names) < len(FOOD_LIST):
-            self.change_screen(Food_Choice.page_name)
-            pass_level_text = Customized_Text(self.screen, (480, 500), "Congratulations! You survived one more meal at the Ranch!", size=28, color='LightGreen')
+            self.pause_surface = pygame.Surface((WIDTH,HEIGHT))  # the size of your rect
+            self.pause_surface.fill("#2e2e2e")  # this fills the entire surface
+            self.pause_surface.set_alpha(180)   # alpha level
+            self.screen.blit(self.pause_surface, (0,0))
+            
+            pass_level_text = []
+            pass_level_text.append(Customized_Text(self.screen, (482, 232), "Congratulations! You survived", size=36, color='#221308'))
+            pass_level_text.append(Customized_Text(self.screen, (480, 230), "Congratulations! You survived", size=36, color='White'))
+            pass_level_text.append(Customized_Text(self.screen, (482, 272), "one more meal at the Ranch!", size=36, color='#221308'))
+            pass_level_text.append(Customized_Text(self.screen, (480, 270), "one more meal at the Ranch!", size=36, color='White'))
+            for text in pass_level_text:
+                text.update()
+            
+            pygame.display.update()
+            
             pygame.mixer.music.pause()
             sound = pygame.mixer.Sound(LEVEL_PASSING_THEME)
-            pass_level_text.update()
-            pygame.display.update()
             sound.play()
             duration = sound.get_length()
             sleep(duration)
             pygame.mixer.music.unpause()
+
+            self.change_screen(Food_Choice.page_name)
         else:
             self.you_win()
 

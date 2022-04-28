@@ -36,7 +36,7 @@ class Food_Choice:
         self.buttons = [
                 Choice_Button(screen, (300, 320), first_food, lambda : self.move_to_phase(first_food, sec_food, 1)),
                 Choice_Button(screen, (658, 320), sec_food, lambda: self.move_to_phase(first_food, sec_food, 2)),
-                Customized_Text(screen, (484, 104), "Escolha sua comida preferida!", size = 36, color = '#221308'),
+                Customized_Text(screen, (482, 102), "Escolha sua comida preferida!", size = 36, color = '#221308'),
                 Customized_Text(screen, (480, 100), "Escolha sua comida preferida!", size = 36, color = 'White')
             ]
         if level == 1:
