@@ -28,6 +28,7 @@ class Ranch:
         self.is_special_ranch = False
         self.there_is_burguer = False
         self.special_ranch_start_time = 0
+        self.is_blind = True
         
         # layout setup
         self.map_sprite = pygame.transform.scale(pygame.image.load('./assets/maps/soldier_ranch_16x16.png').convert(), (WIDTH, HEIGHT))
@@ -120,11 +121,16 @@ class Ranch:
         
             self.player.draw(self.screen)
             self.player.update()
-
+            
             self.screen.blit(self.map_sprite_always_on_top,(0,0))
 
             self.foods.draw(self.screen)
             self.foods.update()
+            
+            if self.is_blind:
+                self.player.sprite.remove_vision()
+
+            self.player.sprite.show_ui(True)
         else:
             self.screen.blit(self.map_sprite,(0,0))
 
@@ -135,6 +141,9 @@ class Ranch:
 
             self.foods.draw(self.screen)
 
+            if self.is_blind:
+                self.player.sprite.remove_vision()
+                
             self.screen.blit(self.pause_surface, (0,0))
 
             if self.buttons:
