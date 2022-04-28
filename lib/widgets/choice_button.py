@@ -1,5 +1,7 @@
 import pygame
 
+from lib.settings import PIXELED_FONT
+
 class Choice_Button:
     def __init__(self, screen, position, food_class, function):
         # setup 
@@ -8,7 +10,7 @@ class Choice_Button:
         size = 24
         color = '#221308'
         
-        text_font = pygame.font.Font('./assets/fonts/ARCADEPI.ttf',size)
+        text_font = pygame.font.Font(PIXELED_FONT,size)
         self.text_surf = text_font.render(food_class.food_name, False, color)
         self.text_rect = self.text_surf.get_rect(center = (position[0], position[1] + 60))
         
