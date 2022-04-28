@@ -60,9 +60,9 @@ class Ranch:
         self.food_names = food_names
         self.foods = pygame.sprite.Group()
         self.food_timer = pygame.USEREVENT + 1
-        pygame.time.set_timer(self.food_timer, 40)
+        pygame.time.set_timer(self.food_timer, 20)
         self.special_ranch = pygame.USEREVENT + 2
-        pygame.time.set_timer(self.special_ranch, 800)
+        pygame.time.set_timer(self.special_ranch, 400)
         
         # player
         self.player = pygame.sprite.GroupSingle()
@@ -108,7 +108,7 @@ class Ranch:
                         else:
                             self.foods.add(Burguer())
 
-                    if event.type == self.special_ranch and not self.is_special_ranch and not self.there_is_burguer and self.level > 2:
+                    if event.type == self.special_ranch and not self.is_special_ranch and not self.there_is_burguer and self.level >= 3:
                         self.foods.add(Trigger_Burguer())
                         self.there_is_burguer = True
 
