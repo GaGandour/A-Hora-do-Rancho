@@ -6,6 +6,7 @@ sys.path.append('./')
 sys.path.append(os.path.join(sys.path[0], 'objects'))
 from settings import *
 from choice_button import Choice_Button
+from back_button import Back_Button
 
 
 from food_list import FOOD_LIST
@@ -23,7 +24,7 @@ class Food_Choice:
         self.text_surf = text_font.render('Escolha sua comida preferida!', False, 'White')
         self.text_rect = self.text_surf.get_rect(center = (480,100))
         self.shadow_surf = text_font.render('Escolha sua comida preferida!', False, '#221308')
-        self.shadow_rect = self.text_surf.get_rect(center = (484,104))
+        self.shadow_rect = self.text_surf.get_rect(center = (482,102))
         self.start_function = change_screen
         self.add_food = add_food
 
@@ -40,6 +41,8 @@ class Food_Choice:
                 Choice_Button(screen, (300, 320), first_food, lambda : self.move_to_phase(first_food, sec_food, 1)),
                 Choice_Button(screen, (658, 320), sec_food, lambda: self.move_to_phase(first_food, sec_food, 2)),
             ]
+        if level == 1:
+            self.buttons.append(Back_Button(screen, (32, 32), lambda: change_screen("home page")))
     
     @staticmethod
     def set_preferences(food_class1, food_class2, preference):
