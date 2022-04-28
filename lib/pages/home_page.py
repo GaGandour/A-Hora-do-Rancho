@@ -34,7 +34,8 @@ class Home_Page:
         self.buttons = [
             Menu_Button(screen, (480, 274), "Play", lambda: change_screen(Food_Choice.page_name)),
             Menu_Button(screen, (480, 422), "How To Play", lambda: change_screen(How_To_Play.page_name)),
-            Customized_Text(screen, (780, 190), random_text, size=20, color='Yellow', rotation=20, pulse=True),
+            Customized_Text(screen, (752, 192), random_text, size=20, color='#221308', rotation=20, pulse=True),
+            Customized_Text(screen, (750, 190), random_text, size=20, color='Yellow', rotation=20, pulse=True),
         ]
 
     def update(self):
