@@ -63,10 +63,10 @@ class Game:
         self.page = {
             Home_Page.page_name : Home_Page(self.screen, self.change_screen),
             Ranch.page_name : Ranch(self.screen, self.level, self.food_names, self.go_to_home_page, self.pass_level, self.game_over),
-            Food_Choice.page_name : Food_Choice(self.screen,  self.change_screen, self.level, self.add_food),
+            Food_Choice.page_name : Food_Choice(self.screen,  self.change_screen, self.level, self.add_food, self.go_to_home_page),
             Game_Over.page_name : Game_Over(self.screen, self.go_to_home_page),
             You_Win_Page.page_name : You_Win_Page(self.screen, self.go_to_home_page),
-            How_To_Play.page_name : How_To_Play(self.screen, self.change_screen)
+            How_To_Play.page_name : How_To_Play(self.screen, self.go_to_home_page)
         }.get(screen_name, Home_Page.page_name)
         if screen_name == Ranch.page_name and self.level == 1:
             self.play_music(self.ranch_time_music)

@@ -18,7 +18,7 @@ from food_list import FOOD_LIST
 class Food_Choice:
     page_name = "food_choice"
          
-    def __init__(self, screen, change_screen, level, add_food): #, start_function) 
+    def __init__(self, screen, change_screen, level, add_food, go_back_function): #, start_function) 
         #self.map_sprite = pygame.transform.scale(pygame.image.load('./assets/maps/scenery.jpg').convert(), (WIDTH, HEIGHT))
         self.level = level
         self.screen = screen
@@ -40,7 +40,7 @@ class Food_Choice:
                 Customized_Text(screen, (480, 100), "Escolha sua comida preferida!", size = 36, color = 'White')
             ]
         if level == 1:
-            self.buttons.append(Back_Button(screen, (32, 32), lambda: change_screen("home page")))
+            self.buttons.append(Back_Button(screen, (32, 32), go_back_function))
     
     @staticmethod
     def set_preferences(food_class1, food_class2, preference):
