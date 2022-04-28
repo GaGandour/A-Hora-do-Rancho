@@ -105,10 +105,12 @@ class Ranch:
     def blackout(self):
         self.is_blind = True
         pygame.mixer.Sound(BLACKOUT_SOUND).play()
+        pygame.mixer.music.set_volume(0.4)
 
     
     def unblackout(self):
         self.is_blind = False
+        pygame.mixer.music.set_volume(1)
 
 
     def update(self):

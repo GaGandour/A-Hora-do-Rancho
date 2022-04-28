@@ -7,10 +7,10 @@ sys.path.append(os.path.join(sys.path[0], 'widgets'))
 
 from settings import *
 from choice_button import Choice_Button
-from back_button import Back_Button
-
 from customized_text import Customized_Text
 from ranch import Ranch
+from back_button import Back_Button
+
 
 from food_list import FOOD_LIST
 

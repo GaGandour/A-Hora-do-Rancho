@@ -72,7 +72,7 @@ class Game:
             self.play_music(self.ranch_time_music)
         if screen_name == Game_Over.page_name:
             self.stop_music()
-        if screen_name == Home_Page.page_name and old_screen_name != How_To_Play.page_name:
+        if screen_name == Home_Page.page_name and old_screen_name != How_To_Play.page_name and old_screen_name != Food_Choice.page_name:
             self.play_music(self.menu_theme_music) 
 
 
