@@ -23,9 +23,12 @@ class Customized_Text:
 
     def update(self):
         if self.pulse:
-            text_font = pygame.font.Font(PIXELED_FONT ,self.size + int(sin(pygame.time.get_ticks()*0.006)*6))
+            text_font = pygame.font.Font(PIXELED_FONT ,25)
             self.text_surf = text_font.render(self.text, False, self.color)
+            scale_factor = (1 + 0.2 * sin(pygame.time.get_ticks()*0.003))
+            self.text_surf = pygame.transform.scale(self.text_surf, (int(self.text_surf.get_width() * scale_factor), int(self.text_surf.get_height() * scale_factor)))
             self.text_surf = pygame.transform.rotate(self.text_surf, self.rotation)
+            
             self.text_rect = self.text_surf.get_rect(center = self.position)
             
         self.screen.blit(self.text_surf, self.text_rect)

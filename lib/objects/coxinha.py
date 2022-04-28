@@ -2,14 +2,14 @@ from food import Food
 import pygame
 from math import sqrt
 
-class Lagarto(Food):
-    food_name = "Lagarto"
-    path = "./assets/images/food/beef.png"
+class Coxinha(Food):
+    food_name = "Coxinha"
+    path = "./assets/images/food/chicken_leg.png"
     is_good = False
 
     def __init__(self):
         super().__init__()
-        temp_image = pygame.image.load(Lagarto.path).convert_alpha()
+        temp_image = pygame.image.load(Coxinha.path).convert_alpha()
         self.image = pygame.transform.scale(temp_image, (30,30))
         self.mask = pygame.mask.from_surface(self.image)
 
