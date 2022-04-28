@@ -16,8 +16,8 @@ class Game_Over:
         self.screen = screen
         
         self.buttons = [
-            Customized_Text(screen, (WIDTH/2, 230), "Game Over!!!", size = 100, color='Red'),
-            Menu_Button(screen, (WIDTH/2, 330), "Go To Start Menu", go_back_to_home_function),
+            Customized_Text(screen, (WIDTH/2, 190), "Game Over!!!", size = 100, color='Red'),
+            Menu_Button(screen, (WIDTH/2, 350), "Back to Menu", go_back_to_home_function),
         ]
         
 
