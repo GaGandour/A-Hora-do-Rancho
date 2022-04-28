@@ -1,3 +1,5 @@
 FPS = 60
 WIDTH = 960
 HEIGHT = 540
+
+PIXELED_FONT = "assets/fonts/ARCADEPI.TTF"

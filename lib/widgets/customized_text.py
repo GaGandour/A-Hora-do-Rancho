@@ -1,5 +1,6 @@
 import pygame
 from math import sin
+from lib.settings import PIXELED_FONT
 
 class Customized_Text:
     def __init__(self, screen, position, text, size = 50, color = 'White', rotation = 0, function = lambda : None, pulse = False):
@@ -7,7 +8,7 @@ class Customized_Text:
         self.screen = screen
         self.function = function
         
-        text_font = pygame.font.Font('./assets/fonts/ARCADEPI.ttf',size)
+        text_font = pygame.font.Font(PIXELED_FONT,size)
         self.text_surf = text_font.render(text, False, color)
         self.text_surf = pygame.transform.rotate(self.text_surf, rotation)
         self.text_rect = self.text_surf.get_rect(center = position)
@@ -22,7 +23,7 @@ class Customized_Text:
 
     def update(self):
         if self.pulse:
-            text_font = pygame.font.Font('./assets/fonts/ARCADEPI.ttf',self.size + int(sin(pygame.time.get_ticks()*0.006)*6))
+            text_font = pygame.font.Font(PIXELED_FONT ,self.size + int(sin(pygame.time.get_ticks()*0.006)*6))
             self.text_surf = text_font.render(self.text, False, self.color)
             self.text_surf = pygame.transform.rotate(self.text_surf, self.rotation)
             self.text_rect = self.text_surf.get_rect(center = self.position)

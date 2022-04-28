@@ -17,8 +17,8 @@ class You_Win_Page:
         self.screen = screen
         
         self.buttons = [
-            Customized_Text(screen, (WIDTH/2, 200), "YOU WIN!!!", size = 100, color='Green'),
-            Menu_Button(screen, (WIDTH/2, 360), "Start Menu", go_back_to_home_function),
+            Customized_Text(screen, (WIDTH/2, 190), "YOU WIN!!!", size = 100, color='Green'),
+            Menu_Button(screen, (WIDTH/2, 350), "Back to Menu", go_back_to_home_function),
         ]
         
 

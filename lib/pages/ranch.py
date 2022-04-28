@@ -7,7 +7,7 @@ sys.path.append(os.path.join(sys.path[0], 'player'))
 sys.path.append(os.path.join(sys.path[0], 'pages'))
 
 from lib.player.player import Player
-from lib.widgets.customized_text import Customized_Text
+from lib.widgets.menu_button import Menu_Button
 from lib.objects.trigger_burguer import Trigger_Burguer
 from lib.objects.burguer import Burguer
 
@@ -70,8 +70,8 @@ class Ranch:
 
         # pause ui
         self.buttons = [
-            Customized_Text(screen, (480, 220), "Resume", function = lambda: self.pause()),
-            Customized_Text(screen, (480, 320), "Go Back To Menu", function = lambda: self.go_to_home_page()),
+            Menu_Button(screen, (480, 200), "Resume", function = lambda: self.pause()),
+            Menu_Button(screen, (480, 360), "Back To Menu", function = lambda: self.go_to_home_page()),
         ]
     
 
