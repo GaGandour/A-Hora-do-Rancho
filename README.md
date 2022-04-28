@@ -40,7 +40,7 @@ Sometimes, a burger may appear. This is the *Rancho Especial* power-up. If the p
 
 ### Blackout!
 
-Sometimes, the power may go out. When this happens, visibility is reduced for a certain amount of time. Eventually, the lights will be fixed and visibility will go back to normal.
+Sometimes, the power may go out. When this happens, visibility is reduced for a certain amount of time and the music volume will go down. Eventually, the lights will be fixed and visibility and music will go back to normal.
 
 ## Architecture
 
