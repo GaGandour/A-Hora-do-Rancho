@@ -23,9 +23,11 @@ from customized_text import Customized_Text
 class Game:
     def __init__(self):
         pygame.init()
+        programIcon = pygame.image.load('./assets/images/food/chicken_leg.png')
+        pygame.display.set_icon(programIcon)
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         self.clock = pygame.time.Clock()
-        pygame.display.set_caption('Hora do Rancho')
+        pygame.display.set_caption('A Hora do Rancho')
         self.level = 1
         self.screen_name = Home_Page.page_name
         self.food_names = []
