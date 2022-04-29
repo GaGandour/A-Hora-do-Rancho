@@ -1,4 +1,4 @@
-<p align = "center"><img src="./assets/images/home_page/title.png" width="80%"></p>
+<p align = "center"><img src="./assets/images/home_page/title_hq.png" width="80%"></p>
 
 # A Hora do Rancho
 
