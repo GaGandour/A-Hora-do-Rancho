@@ -1,12 +1,9 @@
-import pygame, sys, os
-sys.path.append('./')
-sys.path.append(os.path.join(sys.path[0], 'widgets'))
-sys.path.append(os.path.join(sys.path[0], 'objects'))
+import pygame
 from settings import *
 from support import import_folder
-from player_status_ui import Player_Status_UI
+from widgets.player_status_ui import Player_Status_UI
 from enum import Enum
-from trigger_burguer import Trigger_Burguer
+from objects.trigger_burguer import Trigger_Burguer
 
 class Direction(Enum):
     down = "down"

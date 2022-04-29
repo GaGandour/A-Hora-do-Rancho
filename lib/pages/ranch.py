@@ -1,16 +1,11 @@
-import pygame, sys, os
+import pygame
 from random import choice, randint
 
-sys.path.append('./')
-sys.path.append(os.path.join(sys.path[0], 'objects'))
-sys.path.append(os.path.join(sys.path[0], 'player'))
-sys.path.append(os.path.join(sys.path[0], 'pages'))
-
-from lib.player.player import Player
-from lib.widgets.menu_button import Menu_Button
-from lib.widgets.customized_text import Customized_Text
-from lib.objects.trigger_burguer import Trigger_Burguer
-from lib.objects.burguer import Burguer
+from player.player import Player
+from widgets.menu_button import Menu_Button
+from widgets.customized_text import Customized_Text
+from objects.trigger_burguer import Trigger_Burguer
+from objects.burguer import Burguer
 
 from settings import *
 from food_list import *

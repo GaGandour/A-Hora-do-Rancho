@@ -1,6 +1,6 @@
 import pygame
 
-from lib.settings import PIXELED_FONT
+from settings import PIXELED_FONT
 
 class Choice_Button:
     def __init__(self, screen, position, food_class, function):

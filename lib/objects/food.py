@@ -1,5 +1,4 @@
-import pygame, sys, abc
-sys.path.append('./')
+import pygame, abc
 from settings import *
 from random import choice
 

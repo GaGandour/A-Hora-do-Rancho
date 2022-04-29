@@ -1,6 +1,6 @@
 import pygame
 from math import sin
-from lib.settings import PIXELED_FONT
+from settings import PIXELED_FONT
 
 class Customized_Text:
     def __init__(self, screen, position, text, size = 50, color = 'White', rotation = 0, function = lambda : None, pulse = False):

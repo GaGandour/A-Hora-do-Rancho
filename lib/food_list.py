@@ -1,14 +1,11 @@
-import sys, os
-sys.path.append(os.path.join(sys.path[0],'objects'))
-
-from chinelao import Chinelao
-from coxinha import Coxinha
-from costelinha import Costelinha
-from frango_assado import Frango_Assado
-from camarao import Camarao
-from moqueca import Moqueca
-from salsicha import Salsicha
-from sushi import Sushi
+from objects.chinelao import Chinelao
+from objects.coxinha import Coxinha
+from objects.costelinha import Costelinha
+from objects.frango_assado import Frango_Assado
+from objects.camarao import Camarao
+from objects.moqueca import Moqueca
+from objects.salsicha import Salsicha
+from objects.sushi import Sushi
 
 # Do NOT include Burguer in this list
 

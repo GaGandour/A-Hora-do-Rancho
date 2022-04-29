@@ -1,9 +1,5 @@
-import sys, os
-
-sys.path.append(os.path.join(sys.path[0],'pages'))
-
 from settings import *
-from ranch import Ranch
+from pages.ranch import Ranch
 from main import Game
 import pygame
 

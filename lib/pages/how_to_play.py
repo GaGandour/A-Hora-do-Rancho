@@ -1,12 +1,7 @@
-import pygame, sys, os
-sys.path.append('./')
-sys.path.append(os.path.join(sys.path[0], 'objects'))
-sys.path.append(os.path.join(sys.path[0], 'widgets'))
+import pygame
 from settings import *
 from math import sin, cos
-from back_button import Back_Button
-
-
+from widgets.back_button import Back_Button
 
 class How_To_Play:
     page_name = "how to play"

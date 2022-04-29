@@ -1,4 +1,4 @@
-from food import Food
+from objects.food import Food
 import pygame
 from math import sqrt
 
