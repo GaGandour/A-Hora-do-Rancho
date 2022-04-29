@@ -6,7 +6,13 @@ This is a college midterm project in python for the subject CES-22: Object-Orien
 
 ## How to Execute
 
+### By Cloning the Repo
+
 After downloading the repository, execute the `main.py` file in the `lib` folder.
+
+### Or Download the Executable File
+
+Download the executable file on [https://gabriel-gandour.itch.io/a-hora-do-rancho](https://gabriel-gandour.itch.io/a-hora-do-rancho)
 
 ## The Game
 
