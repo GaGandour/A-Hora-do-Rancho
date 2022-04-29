@@ -68,14 +68,14 @@ Finally, the `ranch.py` page communicates with the `player.py` file in the `play
 
 ## Non-Code-Related Credits
 
-The player sprite art was taken from [SRW_Character_pack_week11](https://gif-superretroworld.itch.io/character-pack), made by [Gif](https://gif-superretroworld.itch.io/). Some of the foods were taken or adapted from [Pixel Food!](https://henrysoftware.itch.io/pixel-food), made by [Henry Software](https://henrysoftware.itch.io/). Some of the UI art was adapted from [Treasure Hunters](https://pixelfrog-assets.itch.io/treasure-hunters), made by [Pixel Frog](https://pixelfrog-assets.itch.io/). The fonts used in the game were [Upheaval](https://www.dafont.com/pt/upheaval.font), made by [Aenigma](https://www.dafont.com/pt/aenigma.d188), and [Retro Gaming](https://www.dafont.com/pt/retro-gaming.font), made by [Daymarius](https://www.dafont.com/pt/daymarius.d7345).
-
 ### Music and Sound Effects
 
-Both tracks *`Menu_Theme.wav`* and *`Ranch_Time.wav`* were composed by Gabriel Gandour (`gagandour@gmail.com`). The eating sound effects *`badFood.wav`* and *`goodFood.wav`* were recorded by the group.
+All tracks in the `assets/music` folder (*`Game_Over_Theme.wav`*, *`Level_Passing.wav`*, *`Menu_Theme.wav`*, *`Ranch_Time.wav`* and *`Victory_Theme.wav`*) were composed by Gabriel Gandour (`gagandour@gmail.com`). The eating sound effects *`badFood.wav`* and *`goodFood.wav`* were recorded by the group.
 
 However, the *`BlackOut.wav`* sound effect was extracted from the youtube video at [https://www.youtube.com/watch?v=ET7lSa9GgA0](https://www.youtube.com/watch?v=ET7lSa9GgA0).
 
 ### Graphic Art and Design
 
-Most of the graphic art was designed by Emmanuel Dias (`emanusdias@gmail.com`).
+The player sprite art was taken from [SRW_Character_pack_week11](https://gif-superretroworld.itch.io/character-pack), made by [Gif](https://gif-superretroworld.itch.io/). Some of the foods were taken or adapted from [Pixel Food!](https://henrysoftware.itch.io/pixel-food), made by [Henry Software](https://henrysoftware.itch.io/). Some of the UI art was adapted from [Treasure Hunters](https://pixelfrog-assets.itch.io/treasure-hunters), made by [Pixel Frog](https://pixelfrog-assets.itch.io/). The fonts used in the game were [Upheaval](https://www.dafont.com/pt/upheaval.font), made by [Aenigma](https://www.dafont.com/pt/aenigma.d188), and [Retro Gaming](https://www.dafont.com/pt/retro-gaming.font), made by [Daymarius](https://www.dafont.com/pt/daymarius.d7345).
+
+The rest of the graphic art was designed by Emmanuel Dias (`emanusdias@gmail.com`).
