@@ -54,6 +54,8 @@ Sometimes, the power may go out. When this happens, visibility is reduced for a 
 
 There are two main folders: `assets`, in which one can find the text fonts, music, sound effects and images used in the project, and the folder `lib`, which contains the real code.
 
+Paralel to these folders, the course final presentation that was used in the classroom (`CES22 - 2022 PyGame Entrega Final.pdf`) was added too.
+
 Inside `lib`, there are 5 python files and 5 other folders. The five files consist of general code or settings variables that need to be used to a great quantity of files. There is also the `main.py` file, that executes the game.
 
 The `pages` folder contains the files that represent possible pages in the game (for instance the start menu and the game over screen).
