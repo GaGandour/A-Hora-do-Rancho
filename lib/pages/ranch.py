@@ -63,7 +63,7 @@ class Ranch:
         self.food_names = food_names
         self.foods = pygame.sprite.Group()
         self.food_event = pygame.USEREVENT + 1
-        pygame.time.set_timer(self.food_event, 24 - 3*level)
+        pygame.time.set_timer(self.food_event, millis = 24 - 3*level)
         self.special_ranch_event = pygame.USEREVENT + 2
         pygame.time.set_timer(self.special_ranch_event, 400)
         
@@ -105,10 +105,12 @@ class Ranch:
     def blackout(self):
         self.is_blind = True
         pygame.mixer.Sound(BLACKOUT_SOUND).play()
+        pygame.mixer.music.set_volume(0.2)
 
     
     def unblackout(self):
         self.is_blind = False
+        pygame.mixer.music.set_volume(1)
 
 
     def update(self):

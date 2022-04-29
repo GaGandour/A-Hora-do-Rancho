@@ -204,6 +204,8 @@ class Player(pygame.sprite.Sprite):
     def show_ui(self, playing):
         self.ui.show_health(self.cur_health, self.max_health)
         self.ui.show_sickness(self.cur_sickness, self.max_sickness)
+        self.ui.display_time(self.current_time)
+        
         if playing:
             self.current_time = int(pygame.time.get_ticks()/1000) - self.start_time + self.liquid_time
             if (self.current_time > self.max_time):
@@ -212,7 +214,7 @@ class Player(pygame.sprite.Sprite):
             self.start_time = int(pygame.time.get_ticks()/1000)
             self.liquid_time = self.current_time
         
-        self.ui.display_time(self.current_time)
+        
 
 
     def remove_vision(self):

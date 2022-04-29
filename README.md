@@ -20,11 +20,11 @@ In every level, the player is presented with two dishes. The player will choose 
 
 ### Part 2 : Ranch Time
 
-After choosing the good food, the player will control (using the arrow keys or `WASD`, and press `ESC` to pause) a character in a small map (the *Rancho*). The character has a health bar and a sickness bar. Many dishes will randomly spawn in the map and fly in a certain direction. To eat it, the character has to collide with the food.
+After choosing the good food, the player will control (using the arrow keys or `WASD`, and press `ESC` to pause) a character in a small map (the *Rancho*). The character has a health bar and a disgust bar. Many dishes will randomly spawn in the map and fly in a certain direction. To eat it, the character has to collide with the food.
 
 The health bar starts full and decreases over time. To replenish it, the player has to eat a good food. If it goes down to zero, the character dies of hunger, and the game shows the game over screen.
 
-The sickness bar starts empty and, if the player eats a bad food, it increases by a certain amount. It naturaly decreases slowly over time.
+The disgust bar starts empty and, if the player eats a bad food, it increases by a certain amount. It naturaly decreases slowly over time.
 
 This part ends succesfully if the player survive until the clock on the top-right corner indicates 11:30. If this happens, the player also passes the level.
 
@@ -40,7 +40,7 @@ Sometimes, a burger may appear. This is the *Rancho Especial* power-up. If the p
 
 ### Blackout!
 
-Sometimes, the power may go out. When this happens, visibility is reduced for a certain amount of time. Eventually, the lights will be fixed and visibility will go back to normal.
+Sometimes, the power may go out. When this happens, visibility is reduced for a certain amount of time and the music volume will go down. Eventually, the lights will be fixed and visibility and music will go back to normal.
 
 ## Architecture
 
@@ -64,7 +64,7 @@ Finally, the `tests` folder should be used for debug purposes only and contains 
 
 The `main.py` file contains a Game class, which is responsible for orchestrating all the pages and states of the game. It communicates directly with the page classes in the folder `pages`. The pages `you_win_page.py`, `game_over.py` and `home_page` are rather simple, because they are basically a page with buttons that redirect the player to another page. But the `food_choice.py` page can make changes in the `Game` object (it can change the status of certain foods to "good" or "bad", and add them to the list of spawnable dishes).
 
-Finally, the `ranch.py` page communicates with the `player.py` file in the `player` folder to control the caracter, the health and sickness UI and the collisions of the player (with obstacles or with foods).
+Finally, the `ranch.py` page communicates with the `player.py` file in the `player` folder to control the caracter, the health and disgust UI and the collisions of the player (with obstacles or with foods).
 
 ## Non-Code-Related Credits
 
