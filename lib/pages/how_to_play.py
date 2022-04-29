@@ -11,14 +11,14 @@ from back_button import Back_Button
 class How_To_Play:
     page_name = "how to play"
 
-    def __init__(self, screen, change_screen):
+    def __init__(self, screen, go_back_function):
         self.background = pygame.transform.scale(pygame.image.load('./assets/images/home_page/title_bg.png').convert(), (WIDTH, HEIGHT))
         self.moving_bg = pygame.transform.scale2x(pygame.image.load('./assets/images/home_page/moving_bg.png').convert_alpha())
         self.how_to_play = pygame.image.load('./assets/images/home_page/howtoplay.png').convert_alpha()
         self.screen = screen
 
         self.buttons = [
-            Back_Button(screen, (32, 32), lambda: change_screen("home page")),
+            Back_Button(screen, (32, 32), go_back_function),
         ]
 
     def update(self):
