@@ -1,6 +1,6 @@
 import pygame
 
-from lib.settings import CLOCK_FONT
+from settings import CLOCK_FONT
 
 class Player_Status_UI:
     def __init__(self,screen):

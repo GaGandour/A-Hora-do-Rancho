@@ -1,6 +1,5 @@
-from food import Food
+from objects.food import Food
 import pygame
-from settings import *
 from math import sqrt
 
 class Salsicha(Food):

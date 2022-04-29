@@ -1,23 +1,18 @@
 from time import sleep
-import pygame, sys, os
+import pygame, sys
 from random import shuffle
-
-
-sys.path.append(os.path.join(sys.path[0],'pages'))
-sys.path.append(os.path.join(sys.path[0],'objects'))
-sys.path.append(os.path.join(sys.path[0],'widgets'))
 
 from settings import *
 from food_list import FOOD_LIST
 
-from home_page import Home_Page
-from food_choice import Food_Choice
-from ranch import Ranch
-from game_over import Game_Over
-from how_to_play import How_To_Play
-from you_win_page import You_Win_Page
+from pages.home_page import Home_Page
+from pages.food_choice import Food_Choice
+from pages.ranch import Ranch
+from pages.game_over import Game_Over
+from pages.how_to_play import How_To_Play
+from pages.you_win_page import You_Win_Page
 
-from customized_text import Customized_Text
+from widgets.customized_text import Customized_Text
 
 
 class Game:

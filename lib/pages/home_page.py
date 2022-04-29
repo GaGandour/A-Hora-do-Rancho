@@ -1,15 +1,12 @@
-import pygame, sys, os
-from food_choice import Food_Choice
-from how_to_play import How_To_Play
-sys.path.append('./')
-sys.path.append(os.path.join(sys.path[0], 'objects'))
-sys.path.append(os.path.join(sys.path[0], 'widgets'))
+import pygame
+
 from settings import *
-from menu_button import Menu_Button
-from customized_text import Customized_Text
+from widgets.menu_button import Menu_Button
+from widgets.customized_text import Customized_Text
+from pages.food_choice import Food_Choice
+from pages.how_to_play import How_To_Play
 from math import sin, cos
 from random import choice
-
 
 class Home_Page:
     page_name = "home page"

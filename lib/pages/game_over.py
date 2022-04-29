@@ -1,10 +1,7 @@
-import pygame, sys, os
-sys.path.append('./')
-sys.path.append(os.path.join(sys.path[0], 'objects'))
-sys.path.append(os.path.join(sys.path[0], 'widgets'))
+import pygame
 from settings import *
-from customized_text import Customized_Text
-from menu_button import Menu_Button
+from widgets.customized_text import Customized_Text
+from widgets.menu_button import Menu_Button
 from math import sin, cos
 
 

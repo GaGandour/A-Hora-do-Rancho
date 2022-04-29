@@ -1,16 +1,11 @@
-import pygame, sys, os
+import pygame
 from math import sin, cos
 
-sys.path.append('./')
-sys.path.append(os.path.join(sys.path[0], 'objects'))
-sys.path.append(os.path.join(sys.path[0], 'widgets'))
-
 from settings import *
-from choice_button import Choice_Button
-from customized_text import Customized_Text
-from ranch import Ranch
-from back_button import Back_Button
-
+from widgets.choice_button import Choice_Button
+from widgets.customized_text import Customized_Text
+from pages.ranch import Ranch
+from widgets.back_button import Back_Button
 
 from food_list import FOOD_LIST
 
